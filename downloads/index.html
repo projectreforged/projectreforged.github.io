@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Project Reforged — Downloads</title>
+  <meta name="description" content="Project Reforged downloads — modular HD patches for the classic client" />
+
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --panel:#141414;
+      --panel2:rgba(255,255,255,.03);
+      --text:#eaeaea;
+      --muted:rgba(234,234,234,.78);
+      --muted2:rgba(234,234,234,.62);
+      --gold:#e6b15a;
+      --link:#7cb7ff;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:14px;
+
+      /* match Home feel */
+      --max: 760px;
+
+      --ok: rgba(124,183,255,.16);
+      --warn: rgba(240,198,116,.14);
+      --danger: rgba(255,120,120,.14);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.7;
+    }
+
+    a{ color:var(--link); text-decoration:none; font-weight:700; }
+    a:hover{ opacity:.88; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 18px 72px;
+    }
+
+    header{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .toprow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .title{
+      margin:0;
+      font-size:3.05rem;
+      line-height:1.12;
+      letter-spacing:.2px;
+      color:var(--gold);
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:1rem;
+      font-weight:700;
+    }
+
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .nav a{
+      border:1px solid var(--border);
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:800;
+      font-size:.9rem;
+    }
+
+    .divider{
+      height:1px;
+      background:var(--border);
+      margin:14px 0 16px;
+    }
+
+    .note{
+      color:var(--muted2);
+      font-size:.95rem;
+      margin:0;
+    }
+
+    /* ✅ SINGLE COLUMN ALWAYS */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .sectionTitle{
+      margin:22px 0 10px;
+      font-size:1.55rem;
+      letter-spacing:.2px;
+      color:var(--muted);
+      font-weight:900;
+      text-transform:uppercase;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:16px 16px 14px;
+      box-shadow:var(--shadow);
+    }
+
+    .cardHead{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .patchName{
+      margin:0;
+      font-size:1.15rem;
+      letter-spacing:.2px;
+      font-weight:950;
+    }
+
+    .patchMeta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .tag{
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:5px 9px;
+      font-size:.82rem;
+      color:var(--muted2);
+      background:rgba(255,255,255,.03);
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .tag.ok{ background:var(--ok); border-color:rgba(124,183,255,.28); color:rgba(234,234,234,.88); }
+    .tag.warn{ background:var(--warn); border-color:rgba(240,198,116,.26); color:rgba(234,234,234,.88); }
+    .tag.danger{ background:var(--danger); border-color:rgba(255,120,120,.26); color:rgba(234,234,234,.88); }
+
+    .desc{
+      margin:10px 0 0;
+      color:var(--muted);
+    }
+
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 10px 22px rgba(0,0,0,.25);
+      font-weight:900;
+      color:var(--text);
+    }
+    .btn.primary{
+      background:rgba(124,183,255,.14);
+      border-color:rgba(124,183,255,.30);
+      color: var(--link);
+    }
+
+    .subchoices{
+      margin-top:12px;
+      background:var(--panel2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+    }
+
+    .choice{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.18);
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+    .choice:first-child{ margin-top:0; }
+    .choice b{ font-weight:950; }
+    .choice .small{
+      color:var(--muted2);
+      font-size:.9rem;
+      font-weight:700;
+    }
+
+    .banner{
+      background:rgba(240,198,116,.10);
+      border:1px solid rgba(240,198,116,.22);
+      border-radius:14px;
+      padding:14px;
+      color:rgba(234,234,234,.9);
+      margin-top:14px;
+    }
+
+    footer{
+      margin-top:22px;
+      color:var(--muted2);
+      font-size:.9rem;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="toprow">
+        <div class="brand">
+          <h1 class="title">Downloads</h1>
+          <p class="subtitle">Project Reforged — Modular Patch Library</p>
+        </div>
+
+        <div class="nav">
+          <a href="/">← Home</a>
+          <a class="support-btn" href="https://ko-fi.com/projectreforged" target="_blank">Support</a>
+          <a href="https://discord.gg/JCXtVUAF" target="_blank" rel="noreferrer">Discord</a>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <p class="note">
+        Project Reforged is fully modular — install only what you need, with each component designed to work independently.
+      </p>
+
+      
+    </header>
+
+
+<div id="dependencies" class="sectionTitle">Dependencies</div>
+
+<p class="small" style="margin-top:-6px;">
+Install these first. Required for proper functionality.
+</p>
+
+<div class="grid">
+
+  <!-- VANILLA HELPERS -->
+  <section class="card">
+    <div class="cardHead">
+      <h2 class="patchName">🧩 VanillaHelpers — Mandatory</h2>
+      <div class="patchMeta">
+        <span class="tag danger">Required</span>
+        <span class="tag">Core Dependency</span>
+      </div>
+    </div>
+
+    <p class="desc">
+      <b>VanillaHelpers</b> is required for Project Reforged to function properly.
+    </p>
+
+    <div class="subchoices">
+      <div class="choice">
+        <div>
+          <b>Download VanillaHelpers</b>
+          <div class="small">Latest release from the official repository.</div>
+        </div>
+        <a class="btn primary" href="https://github.com/isfir/VanillaHelpers/releases" target="_blank" rel="noreferrer">Open Releases</a>
+      </div>
+
+      <p class="note" style="margin-top:10px;">
+        Installation: download <b>VanillaHelpers.dll</b> → copy it into your main <b>World of Warcraft</b> folder.
+      </p>
+    </div>
+  </section>
+
+  <!-- DXVK -->
+  <section class="card">
+    <div class="cardHead">
+      <h2 class="patchName">⚙️ DXVK — Optional</h2>
+      <div class="patchMeta">
+        <span class="tag ok">Optional</span>
+        <span class="tag">Rendering</span>
+      </div>
+    </div>
+
+    <p class="desc">
+      DXVK improves the Direct3D 9 rendering pipeline, providing better stability and compatibility, especially when using ReShade.
+    </p>
+
+    <div class="subchoices">
+      <div class="choice">
+        <div>
+          <b>DXVK 2.7.1</b>
+          <div class="small">Latest recommended version</div>
+        </div>
+        <a class="btn primary" href="https://github.com/doitsujin/dxvk/releases/tag/v2.7.1" target="_blank" rel="noreferrer">Open Release</a>
+      </div>
+
+      <div class="choice">
+        <div>
+          <b>DXVK 2.5.3</b>
+          <div class="small">Alternative / fallback version</div>
+        </div>
+        <a class="btn primary" href="https://github.com/doitsujin/dxvk/releases/tag/v2.5.3" target="_blank" rel="noreferrer">Open Release</a>
+      </div>
+
+      <p class="note" style="margin-top:10px;">
+        Installation: extract DXVK → open the folder → go to <b>x32</b> → copy <b>d3d9.dll</b> into your World of Warcraft folder.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<br>
+<div class="banner">
+        <b>Important:</b> Patches <b>B + D + E</b> are one large environment/world set. Install them together (or not at all).
+      </div>
+
+<br>
+
+    <!-- CORE -->
+    <div id="core" class="sectionTitle">Core Modules</div>
+    <div class="grid">
+
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🧙‍♂️ PATCH-A — Player Characters & NPCs</h2>
+          <div class="patchMeta"><span class="tag ok">Core</span></div>
+        </div>
+        <p class="desc">Core character/NPC visuals and foundations used by other modules.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/noi2y6499qygbon/Patch-A.mpq/file">Download</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🏰 PATCH-B — Buildings</h2>
+          <div class="patchMeta"><span class="tag warn">Install with D + E</span></div>
+        </div>
+        <p class="desc">Part of the Environment & World set.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/nz9okkpji6ukptx/Patch-B.mpq/file">Download</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🐉 PATCH-C — Creatures</h2>
+          <div class="patchMeta"><span class="tag ok">Core</span></div>
+        </div>
+        <p class="desc">Creatures and related assets for the classic client.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/fik4owqlilypdsc/Patch-C.mpq/file">Download</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🌿 PATCH-D — Doodads</h2>
+          <div class="patchMeta">
+            <span class="tag warn">Install with B + E</span>
+          </div>
+        </div>
+        <p class="desc">World doodads + Textures.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/s5rux53ylg3kvae/Patch-D.mpq/file">Download</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🌄 PATCH-E — Environment</h2>
+          <div class="patchMeta"><span class="tag warn">Install with B + D</span>            <span class="tag">Includes Fog Push-back</span>
+</div>
+        </div>
+        <p class="desc">Environment textures and world visuals + Fog Push-back integration.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/rkvigu5wl744cnm/Patch-E.mpq/file">Download</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">⚔️ PATCH-G — Gear & Weapons</h2>
+          <div class="patchMeta"><span class="tag ok">Core</span></div>
+        </div>
+        <p class="desc">Gear and weapon visuals used by multiple enhancements.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/ii8sjjkcnrdputl/Patch-G.mpq/file">Download</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🧭 PATCH-I — Interface</h2>
+          <div class="patchMeta"><span class="tag">Includes custom selection circle textures</span></div>
+        </div>
+        <p class="desc">Interface visuals + SuperWoW selection circle texture support.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/ucrv4vd5j1xjwcc/Patch-I.mpq/file">Download</a>
+        </div>
+      </section>
+
+</div>
+
+<br>
+<!-- OPTIONAL -->
+    <div id="optional" class="sectionTitle">Optional Enhancements</div>
+    <div class="grid">
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">💃 PATCH-L — A Little Extra for Females</h2>
+          <div class="patchMeta"><span class="tag warn">Requires PATCH-A</span></div>
+        </div>
+        <p class="desc">Optional body model enhancement. Choose one variant.</p>
+
+        <div class="subchoices">
+          <div class="choice">
+            <div>
+              <b>Regular Version</b>
+              <div class="small">by Watchers3D</div>
+            </div>
+            <a class="btn primary" href="https://www.mediafire.com/file/3q9md90jedub4yq/Patch-L.mpq/file">Download</a>
+          </div>
+
+          <div class="choice">
+            <div>
+              <b>Less Thicc Version</b>
+              <div class="small">by Deezhugs</div>
+            </div>
+            <a class="btn primary" href="https://www.mediafire.com/file/clgpu1s1bi56wvn/Patch-L.mpq/file">Download</a>
+          </div>
+
+          <p class="note" style="margin-top:10px;">
+            Install <b>only one</b> PATCH-L version.
+          </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🗺️ PATCH-M — Maps & Loading Screens</h2>
+          <div class="patchMeta"><span class="tag">Optional</span></div>
+        </div>
+        <p class="desc">Enhanced maps and loading screens.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/pe46zz4v5893d8z/Patch-M.mpq/file">Download</a>
+        </div>
+      </section>
+
+    </div>
+
+       <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🌑 PATCH-N — Darker Nights</h2>
+          <div class="patchMeta"><span class="tag">Optional</span></div>
+        </div>
+        <p class="desc">Darker nights for a more atmospheric experience.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/52hujiqxqfk20zd/Patch-N.mpq/file">Download</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🔥 PATCH-O — Raid Visuals (Compatible Build)</h2>
+          <div class="patchMeta">
+            <span class="tag warn">Optional (conditional)</span>
+            <span class="tag danger">Requires C + S</span>
+          </div>
+        </div>
+        <p class="desc">
+          Compatible version of Marceline’s Turtle WoW Raid Visuals Mod.<br>
+          Use this only if you also run <b>PATCH-C</b> and <b>PATCH-S</b>. Otherwise, use the original Patch-O from Marceline’s post.
+        </p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/k2qfdn55amsqp6l/Patch-O.mpq/file">Download</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">✨ PATCH-V — Spell Visual Effects</h2>
+          <div class="patchMeta"><span class="tag">Optional</span></div>
+        </div>
+        <p class="desc">Spell visuals and effect enhancements.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/7g1voy6sjq9r6v9/Patch-V.mpq/file">Download</a>
+        </div>
+      </section>
+
+    <br>
+
+    <!-- AUDIO -->
+    <div id="audio" class="sectionTitle">Audio</div>
+    <div class="grid">
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🎵 PATCH-S — Sounds & Music</h2>
+          <div class="patchMeta"><span class="tag">Optional</span></div>
+        </div>
+        <p class="desc">Sounds and music enhancements.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://www.mediafire.com/file/3ztrwj601wtf0e7/Patch-S.mpq/file">Download</a>
+        </div>
+      </section>
+
+    </div>
+
+<br>
+    <!-- ULTRA -->
+    <div id="ultra" class="sectionTitle">Ultra Tier</div>
+    <div class="grid">
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">💎 PATCH-U — Ultra HD Character Textures & Gear</h2>
+          <div class="patchMeta">
+            <span class="tag danger">Requires A + G</span>
+            <span class="tag warn">Heavy</span>
+          </div>
+        </div>
+
+        <p class="desc">
+          Ultra tier textures for characters and gear. Requires <b>PATCH-A</b> and <b>PATCH-G</b>.
+        </p>
+
+        <div class="subchoices">
+          <div class="choice">
+            <div>
+              <b>Standard</b>
+              <div class="small">Best quality (heavier)</div>
+            </div>
+            <a class="btn primary" href="https://www.mediafire.com/file/520x1tt1trhukrn/Patch-U.mpq/file">Download</a>
+          </div>
+
+          <div class="choice">
+            <div>
+              <b>Performance Version</b>
+              <div class="small">If you experience crashes (lighter)</div>
+            </div>
+            <a class="btn primary" href="https://www.mediafire.com/file/sctgkibjc4jg5tw/PATCH-U.mpq/file">Download</a>
+          </div>
+
+          <p class="note" style="margin-top:10px;">
+            <b>Do not install both.</b> Choose <b>Standard</b> or <b>Performance</b>.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>
+      Project Reforged — Downloads • 2026
+    </footer>
+
+  </div>
+</body>
+</html>

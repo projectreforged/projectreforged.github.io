@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Project Reforged — Patch Notes</title>
+<meta content="Project Reforged Patch Notes — Full changelog by release date." name="description"/>
+<style>
+    :root{
+      --bg:#080808;
+      --panel:#141414;
+      --text:#eaeaea;
+      --muted:rgba(234,234,234,.78);
+      --muted2:rgba(234,234,234,.62);
+      --gold:#e6b15a;
+      --goldlight:#f0c674;
+      --link:#7cb7ff;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:14px;
+      --max:760px;
+    }
+
+    html{ scroll-behavior:smooth; }
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.7;
+    }
+
+    a{ color:var(--link); text-decoration:none; font-weight:700; }
+    a:hover{ opacity:.85; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 18px 72px;
+    }
+
+    
+    header{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .toprow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .title{
+      margin:0;
+      font-size:3.05rem;
+      line-height:1.12;
+      letter-spacing:.2px;
+      color:var(--gold);
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:1rem;
+      font-weight:700;
+      max-width:720px;
+    }
+
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .nav a{
+      border:1px solid var(--border);
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:800;
+      font-size:.9rem;
+      text-decoration:none;
+      transition:.2s;
+    }
+    .nav a:hover{
+      background:rgba(230,177,90,.10);
+      border-color:rgba(230,177,90,.25);
+      color:var(--gold);
+    }
+.divider{
+      height:1px;
+      opacity:.6;
+      background:var(--border);
+      margin:10px 0 14px;
+    }
+
+    /* NAV */
+    /* Layout */
+    .box{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size:1.35rem;
+      letter-spacing:.2px;
+    }
+
+    p{ margin:0 0 10px; }
+    p:last-child{ margin-bottom:0; }
+
+    .note{ color:var(--muted2); font-size:.95rem; }
+    .small{ color:var(--muted2); font-size:.9rem; }
+
+    /* TOC */
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.06);
+      color:var(--muted);
+      font-weight:800;
+      font-size:.92rem;
+      transition:.2s;
+    }
+
+    .chip:hover{
+      background:rgba(230,177,90,.10);
+      border-color:rgba(230,177,90,.25);
+      color:var(--gold);
+    }
+
+    /* Entries */
+    .entry{
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    .entryHeader{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .date{
+      font-weight:900;
+      letter-spacing:.3px;
+      font-size:1.1rem;
+      color:var(--text);
+      margin:0;
+    }
+
+    .backTop{
+      font-size:.92rem;
+      color:var(--muted2);
+      font-weight:800;
+    }
+
+    .backTop:hover{ color:var(--gold); }
+
+    .sep{
+      text-align:center;
+      color:rgba(230,177,90,.55);
+      margin:14px 0 0;
+      letter-spacing:.6px;
+      user-select:none;
+    }
+
+    .patchBlock{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+    }
+
+    .patchTitle{
+      margin:0 0 6px;
+      font-weight:900;
+      color:var(--gold);
+      letter-spacing:.2px;
+    }
+
+    ul{
+      margin:8px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    li{ margin:6px 0; }
+
+    /* Callout */
+    .callout{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(124,183,255,.25);
+      background:rgba(124,183,255,.08);
+    }
+
+    .callout strong{ color:var(--text); }
+
+    footer{
+      margin-top:18px;
+      color:var(--muted2);
+      font-size:.88rem;
+      text-align:center;
+    }
+  
+
+/* Version + date styling */
+.dateStack{ display:flex; flex-direction:column; gap:2px; }
+.ver{
+  margin:0;
+  font-weight:950;
+  letter-spacing:.4px;
+  font-size:1.1rem;
+  color:var(--gold);
+}
+.dateSub{
+  margin:0;
+  font-weight:800;
+  font-size:.92rem;
+  color:var(--muted2);
+}
+.smallTag{
+  font-weight:900;
+  font-size:.9rem;
+  color:rgba(230,177,90,.75);
+  margin-left:8px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header id="top">
+      <div class="toprow">
+        <div class="brand">
+          <h1 class="title">Patch Notes</h1>
+          <p class="subtitle">Full release history for <strong>Project Reforged</strong>.</p>
+        </div>
+
+        <div class="nav">
+          <a href="/">← Home</a>
+          <a href="/downloads/">Downloads</a>
+          <a href="https://discord.gg/SEU_LINK" target="_blank" rel="noreferrer">Discord</a>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+    </header>
+<section class="box">
+<h2>📜 Changelog</h2>
+<div class="callout" style="margin-top:12px;">
+<p class="note" style="margin:0;">
+<strong>Current Stable:</strong> v5.0.0 <span style="color:rgba(234,234,234,.62);"><b>— February 20th, 2026</b></span>
+</p>
+</div>
+
+<div class="callout">
+<p class="note" style="margin:0;">
+<strong>MILESTONE:</strong> A turning point in the journey. The HD Project is reborn — emerging anew as Project Reforged.          </p>
+</div>
+
+
+<!-- ========== ENTRIES ========== -->
+
+<div class="entry">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v5.0.0</p><p class="dateSub">2026.02.20</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Added 4 new hairstyles to the Human Male HD model</li>
+<li>Added a new facial hair style for Human Male (short full-beard)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Fixed texture mismatches affecting several Ram creatures across the world
+</li>
+<li>Fixed incorrect texture assignment for Shadra the Venom Queen</li>
+<li>Updated Bragok (Goblin Flight Master in Ratchet) to an HD model</li>
+<li>Fixed texture mapping for all Centaur Khan creatures, including Lykourgos the Reaver and Achaikos (Gillijim’s Isle)
+</li>
+<li>Upgraded several human pirate NPCs that were still using legacy models to HD versions
+</li>
+<li>Fixed lighting/reflection behavior for the Druid Swift Travel Form (Malorne) model
+</li>
+<li>Upgraded all undead horses (including Deathchargers) to HD models from Tomkek
+</li>
+<li>Corrected the creature model for the Arcane Feline mount (Donation Shop)
+</li>
+<li>Replaced the Argent Warhorse model to match the vanilla standard
+</li>
+<li>Fixed texture issues on the Ruin mount (Donation Shop)
+</li>
+<li>Updated Paladin mount models to align with vanilla standards
+</li>
+<li>Fixed visual glow effects on Rivendare’s Charger
+</li>
+<li>Upgraded all Night Elf Swift Frostsaber mounts to a newer HD model
+</li>
+<li>Upgraded the Immortal Charger (Hardcore achievement) to an HD model
+</li>
+<li>Fixed T-pose issue affecting Wild Reachfeather Gryphons during combat
+</li>
+<li>Fixed the Stormwind “Bridge Crash” issue related to cow model animation handling outside city gates
+</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Reverted Zeppelin model to the original (vanilla) version due to multiple issues in the current HD model
+</li>
+<li>Temporary fix of Goldshire and Wetlands Inn crashes by reverting inn's model to vanilla
+</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH E</p>
+<ul>
+<li>Upgraded Caverns of Time background textures (nebulae, planets, asteroids) to HD
+</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Added a third color variation for the Paladin Tier 2 HD set (Patch U + G) — thanks to Mr. I. Ben
+</li>
+<li>Updated all masks, hoods, blindfolds, and similar headgear to new HD models
+</li>
+<li>Corrected icon mapping for Empty Vial, Leaded Vial, and Imbued Vial
+</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH I</p>
+<ul>
+<li>Added 30,000+ HD icons to the patch — credits to Aevintiri for the Clean Icons Mechagnome Edition set
+</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U</p>
+<ul>
+<li>Added a third color variation for the Paladin Tier 2 HD set (Patch U + G) — thanks to Mr. I. Ben
+</li>
+<li>Added 4 new hairstyles to the Human Male HD model</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH V</p>
+<ul>
+<li>Reverted Fear spell animation due to quality concerns
+</li>
+</ul>
+</div>
+
+
+
+
+<div class="sep">⋘───────⋙</div>
+</div>
+
+<div class="entry" id="d-2025-12-22">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.8</p><p class="dateSub">2025.12.22</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Fixed Mergothid creature texture</li>
+<li>Upgraded all Beholder textures to UHD</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Reverted Zeppelin HD model textures to standard resolution (tentative fix for the invisible zeppelin dock bug)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH S</p>
+<ul>
+<li>Reduced footstep sound volume (from +15 dB to +10 dB)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-20">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.7</p><p class="dateSub">2025.12.20</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Upgraded Molten Giant textures to UHD</li>
+<li>Upgraded wolf textures to UHD (all color variations)</li>
+<li>Updated Shaman Wolf form with a more spectral color tone</li>
+<li>Fixed a missing glow texture on the Ironhand Guardian inside Blackrock Depths</li>
+<li>Upgraded stone golem textures to UHD</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Fixed a bonfire model that prevented targeting units behind it</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-16">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.6</p><p class="dateSub">2025.12.16</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Fixed broken geoset data of several helmets that caused goblin facial glitches</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Reworked furbolg textures for improved quality (including Illusion: Furbolg)</li>
+<li>Upgraded worgen textures to UHD (including Illusion: Gilnean Worgen)</li>
+<li>Upgraded hydra textures to UHD (including a head fix for Hydra of the Reaches)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Fixed a crash caused by broken collision on centaur tents (thanks to Appletrey!)</li>
+<li>Fixed a broken texture on centaur tents</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Fixed beard clipping on night elves when using Lieutenant Commander’s Dragonhide Headguard and Sightless Leather Hood</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U</p>
+<ul>
+<li>Changed the eye color of the Undead Mark of Darkness skin to red</li>
+<li>Minor adjustment to undead male eye color (slightly more reddish)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-15">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.5</p><p class="dateSub">2025.12.15</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Fixed several helmet geosets that caused undead jaws to disappear when wearing certain headgear</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Fixed several headmask items that were clipping through night elf beards</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-12">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.4</p><p class="dateSub">2025.12.12</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li><strong>Critical Update:</strong> Addressing new DBC code lines added by Turtle Team</li>
+<li>Savannah Cub model replaced for visual consistency</li>
+<li>All Druid forms textures upgraded to UHD</li>
+<li>Added more color variation to Furbolg Skin Textures and upgraded to UHD</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH O</p>
+<ul>
+<li>Latest revision after Patch-C update</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-10">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.3</p><p class="dateSub">2025.12.10</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Shaman’s new HD totems: all particle effects are now fully functional</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-09">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.2</p><p class="dateSub">2025.12.09</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Added a ground-glow effect to all Shaman totems</li>
+<li>Replaced the Savannah Matriarch model for visual consistency</li>
+<li>Restored and upscaled textures for most Dragonspawn creatures</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U</p>
+<ul>
+<li>Reworked Tauren Male skin textures — “Mark of the Spirit Waker” and the light-skin variant with tattoo — for the highest possible quality</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-08">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.1</p><p class="dateSub">2025.12.08</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Winter's Veil NPC Alaya Dawnrose fixed texture</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Kodo Patriarch NPC skin texture fixed</li>
+<li>Krampus NPC skin texture fixed</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Zeppelin upgraded to a new HD model and upscaled texture</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH O</p>
+<ul>
+<li>Updated to carry recent Patch-C changes</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-05">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.4.0</p><p class="dateSub">2025.12.05</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Minor adjustments for some undead male hair</li>
+<li>Cairne Bloodhoof Texture upgraded to UHD</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Includes brand new Classiic HD Module "Redridge Mountains" (thank you, Appletrey. You rock!)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Barrens Giraffe texture upgraded to UHD</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Includes brand new Classiic HD Module "Redridge Mountains" (thank you, Appletrey. You rock!)</li>
+<li>Goldshire Inn — fixed a glitch near the entrance where moving the camera would make the world invisible</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH E</p>
+<ul>
+<li>Includes brand new Classiic HD Module "Redridge Mountains" (thank you, Appletrey. You rock!)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Weapon Ancestral War Totem upgraded to HD model</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH S</p>
+<ul>
+<li>Increased footstep sounds to +15 dB (was +10 dB before)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U</p>
+<ul>
+<li>Fixed T1 Warrior Gloves texture (Gauntlets of Might)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-12-01">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.3.4</p><p class="dateSub">2025.12.01</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Shaman Totems upgraded to a more vanilla-like HD model</li>
+<li>Mountain Cougar and Flatland Cougar tiger model replaced for consistency</li>
+<li>Amani War/Battle Bear mounts textures upgraded to UHD</li>
+<li>Baine Bloodhoof texture upgraded to UHD</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U</p>
+<ul>
+<li>All dwarf extra skins from Donation Shop were revised and fixed after glitched faces</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-29">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.3.3</p><p class="dateSub">2025.11.29</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Fixed Night Elf facial clipping when using masks by restoring legacy beard/moustache geosets while keeping the updated Undead jaw preservation mask</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH I</p>
+<ul>
+<li>Includes SuperWoW Extra Patch for Custom Selection Circle Styles</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-28">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.3.2</p><p class="dateSub">2025.11.28</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Twilight Runner upgraded to a new HD model</li>
+<li>Savannah Huntress model reverted and texture redone</li>
+<li>Several tiger colors updated with an improved higher-quality texture</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Fixed missing cart and some tree trunks in Eastvale Logging Camp, Elwynn Forest</li>
+<li>Fixed collision of Centaur Huts new HD model — no more crashes ;)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-27">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.3.1</p><p class="dateSub">2025.11.27</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Fixed all geoset helmet glitches which caused some face parts getting invisible when wearing certain head gear for some playable races</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Cow model updated from its most recent version of WoW Midnight expansion (oh YEAH!)</li>
+<li>Anduin Wrynn fixed face</li>
+<li>Glitched face from some children in Stormwind City fixed</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH E</p>
+<ul>
+<li>Centaur Hut missing saber tooth texture is now included in Patch-E (no more Patch-C dependency)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U &amp; U Performance</p>
+<ul>
+<li>Tauren Male Grimtotem skin from donation shop fixed</li>
+<li>Undead Male Death Knight Skin from donation shop fixed</li>
+<li>Gnome Female Skin from donation shop shows underwear now</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-21">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.3.0</p><p class="dateSub">2025.11.21</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Added latest Classiic HD Update (centaur tents, kodo’s graveyard, Stranglethorn trees, etc.)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Shaman totems upgraded to a new HD model</li>
+<li>UHD textures upgraded for: Thrall, Voljin, Thunder Lizards</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Assets from latest Classiic HD included</li>
+<li>New updated trees added from Neymey’s collection (thanks to Neymey!)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH E</p>
+<ul>
+<li>FogPushBack mod incorporated into Patch-E</li>
+<li>Selected high-res ground tilesets included from Neymey’s collection (thanks to Neymey!)</li>
+<li>Fixed glitched collision within Razor Hill Inn, Durotar</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U + U Performance</p>
+<ul>
+<li>Female Undead bone skin textures fixed for all color variations</li>
+<li>Troll (both male and female) skins from Donation Shop fixed for UHD Patch</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-16">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.2.5</p><p class="dateSub">2025.11.16</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Removed Spell Visual Effects (now a standalone module: Patch-V)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Reverted glitched Zeppelin model to vanilla</li>
+<li>Goldshire Inn entrance collision fixed (thanks to Appletrey!)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Fixed missing icon for Rhok'delar, Longbow of the Ancient Keepers</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH V</p>
+<ul>
+<li>Initial Release: standalone module for HD Spell Visual Effects</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U &amp; U Performance</p>
+<ul>
+<li>Male Night Elf dark blue beard now matches hair color</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-14">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.2.4</p><p class="dateSub">2025.11.14</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Mount tamed Rak'shiri shows correct model now</li>
+<li>Several horse-mount records fixed after pointing to wrong model</li>
+<li>Vile Familiar textures upgraded to UHD</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH S</p>
+<ul>
+<li>Medium/Heavy Rain sound reworked to include distant thunders</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U + U Performance</p>
+<ul>
+<li>Fixed all donation shop skin faces for all playable races</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-13">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.2.3</p><p class="dateSub">2025.11.13</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Stormwind Guard’s Sword texture upscaled</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH S</p>
+<ul>
+<li>Characters footstep sounds volume increased by +10 dB</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-12">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.2.2</p><p class="dateSub">2025.11.12</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Invisible table in Goldshire Inn fixed</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U &amp; U Performance</p>
+<ul>
+<li>Fixed all Undead Male Bone Textures</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-11-11">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.2.1</p><p class="dateSub">2025.11.11</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Fixed all glitched human children faces around the world</li>
+<li>Fixed textures for some creatures in Maraudon (Razorlash and lash creatures)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D &amp; E</p>
+<ul>
+<li>Patches reworked to include all assets from Vidooo’s Ground Textures Mod</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U &amp; U Performance</p>
+<ul>
+<li>Fixed various cosmetic items texture issues</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-09-11">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.2.0</p><p class="dateSub">2025.09.11</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Rebuilt entire database to fix several issues and crashes</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH O</p>
+<ul>
+<li>Rebuilt using latest release from Marceline</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-08-11">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.1.1</p><p class="dateSub">2025.08.11</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Fixed some female orc mismatching scalps with some hairs</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Fixed some textures to Dryad Illusion</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH D</p>
+<ul>
+<li>Replaced Elwynn Forest trees foliages with a more dense one</li>
+<li>Fixed a missing table inside Goldshire Inn</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U (Performance)</p>
+<ul>
+<li>Fixed some broken textures related to gear</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-07-11">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.1.0</p><p class="dateSub">2025.07.11</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Removed ItemDisplayInfo.dbc file that wasn't supposed to be there (moved to Patch G instead)</li>
+<li>Gnome Necromant Skin (from Donation shop) should be working now</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Textures upscaled to match new limits (1024px): Abomination, Night Elf epic mounts, all Kodo mounts, Druid epic travel form (Malorne)</li>
+<li>Reverted Dryad Illusion model so players can use all animations properly</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Added ItemDisplayInfo.dbc to make it work properly as a standalone module</li>
+<li>Fixed transparency glitches for some faction cloaks (e.g., Silvermoon Remnant)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH L</p>
+<ul>
+<li>Updated to latest release</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH O</p>
+<ul>
+<li>Updated to latest release</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U</p>
+<ul>
+<li>Added all extra male orc skins to UHD textures</li>
+<li>Gnome Necromant Skin should be working now (UHD version)</li>
+<li><strong>PATCH U (Performance Version)</strong> added to download list</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-06-11">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.0.1</p><p class="dateSub">2025.06.11</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Removed "Bikini Mod"</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH U</p>
+<ul>
+<li>Fixed Human Female missing eyebrows for characters</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="callout">
+<p class="note" style="margin:0;">
+<strong>MILESTONE:</strong> A complete rework of the HD Patch — now structured into powerful modular components, offering unprecedented flexibility and customization.
+          </p>
+</div>
+<div class="entry" id="d-2025-05-11">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v4.0.0</p><p class="dateSub">2025.05.11</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>General Marcus Jonathan in Stormwind properly shows HD armor now</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B, D, E</p>
+<ul>
+<li>Classiic HD Mod "Goldshire" pack incorporated</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Fixed Illusions: Furbolg / Blue Dragonkin / Lunar Dryad to show correct HD models/textures</li>
+<li>Riding Ice Saber size fixed (not a puppet anymore :D)</li>
+<li>Paladin mounts updated to UHD textures</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH G</p>
+<ul>
+<li>Tabards restored to original textures ("Stone Guard's Herald" / "Knight's Colors")</li>
+<li>Bikini Mod incorporated</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+
+<div class="entry" id="d-2025-10-20">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.1.3</p><p class="dateSub">2025.10.20</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Stormwind Guard's Helmet is fixed for all playable races.</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-14">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.1.2</p><p class="dateSub">2025.10.14</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Stormwind Guard set for player character upgraded to HD model</li>
+<li>Stormwind Guard’s Helmet adjusted for a tighter and more natural fit</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Addressed minor issues and visual inconsistencies for a smoother experience</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-13">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.1.0</p><p class="dateSub">2025.10.13</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Fixed a texture glitch on the T2.5 Warrior Helmet (Conqueror’s Crown)</li>
+<li>Fixed an issue with male human long hair, which appeared bald on the HD model</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Fixed a glitched texture affecting one of the Earth Elementals</li>
+<li>All crashes in Tanaris resolved (following the Patch O fix)</li>
+<li>Tiger Model Revamp — updated many tiger models to Nightsaber HD version</li>
+<li>Fixed all parrot textures to properly match their new HD models</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-10">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.0.7</p><p class="dateSub">2025.10.10</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>The Tauren custom long beard has been updated to match the HD visual style</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Fixed broken chandelier texture in Scholomance</li>
+<li>Improved general lantern model (shape + lighting detail)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Druid Travel Form revised for consistency and higher detail</li>
+<li>Replaced Gammerita (Elite Sea Turtle) with a more intimidating HD model</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-08">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.0.6</p><p class="dateSub">2025.10.08</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Some item textures reconverted to fix excessively large file sizes (could cause crashes on character selection)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>General torch model reworked (scale, collision, bound box) to prevent invisible barrier issues</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-07">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.0.5</p><p class="dateSub">2025.10.07</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>New Main Menu Music — reorchestrated while preserving 100% fidelity to the original theme</li>
+<li>Soul Harvester weapon reverted to its former HD model</li>
+<li>Removed increased footstep sounds (bringing more issues than joy)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Fixed glowing rotation of general hanging lantern</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Fixed Wyvern Riders (Horde) HD models showing on Patch-B — now correctly on Patch-C</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-06">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.0.4</p><p class="dateSub">2025.10.06</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Updated info for added items after recent Turtle update</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Removed Darker Nights from HD patch (install separately if desired)</li>
+<li>Reverted Zeppelin model to vanilla to avoid crashes</li>
+<li>Fixed Battleground Portals missing texture (if you use Patch B only)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Updated info for added creatures after recent Turtle update</li>
+<li>Fixed Gryphon riders (Alliance) HD models showing on Patch-B — now correctly on Patch-C</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-05">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.0.3</p><p class="dateSub">2025.10.05</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Paladin's Tier 2 boots glitched textures fixed</li>
+<li>Male gnome full beard matches between HD and SD models</li>
+<li>Male tauren big horn matches between HD and SD models</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Fixed broken textures incorporated from Vish’s patch</li>
+<li>Added Darker Nights mod 50% (experimental phase)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-03">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.0.2</p><p class="dateSub">2025.10.03</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Fixed a missing texture from a building in Razor Hill (Durotar)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Kodo mounts texture improved</li>
+<li>Black Tournament charger mount texture improved</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-02">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.0.1</p><p class="dateSub">2025.10.02</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Paladin Tier 2 set (tank spec) recolored to blue</li>
+<li>Step sounds volume increased by +10 dB for player characters and mounts (big thanks to Pdot)</li>
+<li>Rain sound effects reverted back to vanilla</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Durotar revamped — new trees, rocks, tilesets (big thanks to Appletrey)</li>
+<li>Zeppelin model upgraded to HD (thanks to Appletrey)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH C</p>
+<ul>
+<li>Fixed an incorrect texture applied to certain Earth Elementals</li>
+<li>Druid Swift Travel Form upgraded to HD Stag Malorne model</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH M</p>
+<ul>
+<li>All maps updated with even higher quality textures (big thanks to Vish)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-10-01">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v3.0.0</p><p class="dateSub">2025.10.01</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="callout">
+<p class="note" style="margin:0;">
+<strong>Milestone:</strong> HD Patch split into three files (Patch-A, Patch-B, Patch-C) and full integration of upscaled vanilla textures from <b>Faithful Uspcale mod</b>.
+          </p>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Fixed the infamous invisible wall bug in Chimaera Roost Vale (Feralas)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-09-30">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.1.3</p><p class="dateSub">2025.09.30</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>All Frostsabre mounts upgraded to improved textures</li>
+<li>All tiger creatures upgraded to improved textures</li>
+<li>Paladin mounts (lvl 40 and lvl 60) upgraded to improved textures</li>
+<li>Paladin lvl 40 mount model updated</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-09-29">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.1.2</p><p class="dateSub">2025.09.29</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Pet Wally Bear missing texture fixed</li>
+<li>Ancient Protector Rooted fixed texture in Ursan Heights</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Large turtle shell positions fixed so players can walk in (quest giver stuck issue)</li>
+<li>Fixed collision of Blue Alliance Wagon</li>
+<li>Excavation Barriers collision removed to match vanilla standards (avoid players getting stuck)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-09-25">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.1.1</p><p class="dateSub">2025.09.25</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Southshore guards double shoulder fix</li>
+<li>Loading bar color reverted to vanilla on loading screens</li>
+<li>Armored Grey Steed texture fix (no more crashes due to this)</li>
+<li>Fixed some player character female troll hair templates (thanks to DozenBjorn!)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Raid Portal is fixed now</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH M</p>
+<ul>
+<li>Blackfathom Deeps maps updated to HD and correctly shows updated dungeon</li>
+<li>Patch M now includes all loading screens for quality improvement</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="callout">
+<p class="note" style="margin:0;">
+<strong>NEW PATCH INCLUDED:</strong> Added Patch-M to the pack, which includes HD maps for all regions and instances!
+          </p>
+</div>
+<div class="entry" id="d-2025-09-22">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.1.0</p><p class="dateSub">2025.09.22</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH A</p>
+<ul>
+<li>Melanastrasza dragon texture fixed</li>
+<li>All frostsabres mounts (including epic ones) now have improved model and textures</li>
+<li>Thrall's shoulders glitch is fixed</li>
+<li>The Risen Guard reverted to vanilla to eliminate crash inside Kara and Scholomance</li>
+<li>Weapon Verigan's Fist now has legion artifact mace appearance again</li>
+<li>Black War Steed missing textures fixed</li>
+<li>Galak messenger shows its armor correctly now</li>
+<li>Fixed missing background music in Westfall</li>
+<li>All Alliance War Steeds now have a fully HD upgraded model</li>
+<li>Mechanical Warhorse now has a working texture to match its HD model</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH B</p>
+<ul>
+<li>Hanging Lantern green glowing glitch fixed (various locations)</li>
+<li>Gypsy Blue Wagon textures improved (no longer shadowed by day / illuminated at night)</li>
+</ul>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH M</p>
+<ul>
+<li>Kalimdor HD map now correctly shows Blackstone Island</li>
+<li>Blackstone Island added to HD Maps</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-09-20">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.0.4</p><p class="dateSub">2025.09.20</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="callout">
+<p class="note" style="margin:0;">
+<strong>Consistency update:</strong> Patch-A no longer carries environment changes (Pretty Night Sky + EpochWater). These changes are now applied by Patch-B.
+          </p>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">General</p>
+<ul>
+<li>Fixed Instance Portals green bug (missing texture) when using Patch-B only</li>
+<li>Gun shot sounds reverted to vanilla</li>
+<li>Eastern Kingdoms HD map received extra improvements</li>
+<li>Frostsabers mounts upgraded to a new HD model and textures</li>
+<li>Fixed a specific Wagon behavior that wasn't reflecting light properly (thanks DozenBjorn!)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-09-17">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.0.3</p><p class="dateSub">2025.09.17</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">General</p>
+<ul>
+<li>Black Deathcharger Mount fixed (again ;)</li>
+<li>Paladin Tier 2 recolor (Retribution spec) to match vanilla colors (Thanks to Mriben)</li>
+<li>Ragnaros model reverted to vanilla</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-09-15">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.0.2</p><p class="dateSub">2025.09.15</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">General</p>
+<ul>
+<li>Arcane Missiles is working as intended now (thank you Watcher3D for the fix!)</li>
+<li>Item Bastion of Stormwind restored to its HD model</li>
+<li>New updated campfire model and lightning effects (thanks Watchers3D!)</li>
+<li>Frostwolf Pup shows correct model (was Malfurion Stormrage)</li>
+<li>Undead character selection background reverted to vanilla due to glitches (textures improved)</li>
+<li>Lambent Scale Shield shows correct model now</li>
+<li>Lantern glow leaks through walls fixed (thanks DozenBjorn!)</li>
+<li>Mount Black Unicorn model fixed</li>
+<li>Black Deathcharger now properly displays its HD model</li>
+<li>Fixed wrong model to an Earth Elemental in Silithus</li>
+<li>Reverted Zeppelin to vanilla due to invisibility glitches (until Appletrey fix)</li>
+</ul>
+</div>
+<div class="callout">
+<p class="note" style="margin:0;">
+<strong>Hotfix 1:</strong> Arcane Missiles fix also applies to Troll characters.
+          </p>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-09-12">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.0.1</p><p class="dateSub">2025.09.12</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">General</p>
+<ul>
+<li>Hotfix for wrong textures to Stormwind Guards</li>
+<li>Added HD armor to another 15+ Stormwind Guards</li>
+<li>Both files optimized for best performance and are now significantly smaller in size</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<!-- The big narrative + detailed sections from your paste -->
+
+<div class="entry" id="d-2025-09-11b">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v2.0.0</p><p class="dateSub">2025.09.11</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="callout">
+<p class="note" style="margin:0;">
+<strong>BIG UPDATE:</strong> 250+ new NPC faces fixed (HD models + textures). Crashes related to Warlock Drain Soul, Scholomance and Kara Crypts finally fixed!
+          </p>
+</div>
+<div class="callout">
+<p class="note" style="margin:0;">
+<strong>Note:</strong> This is the most updated HD patch so far! Patch-B is now part of the project. New content included, plus many fixes from previous versions.
+                    </p>
+</div>
+<ul>
+<li>Fixed glitched NPCs: Lyrei Silverbrook, Aira Starsworn, Nippsy Tramazona, Deputy Willem, Viessa Windseeker</li>
+<li>Some items restored to HD version (e.g., Stormwind Guard gear)</li>
+<li>Ragnaros size reduced to 70% of previous</li>
+<li>Added a HD model for the Black Unicorn mount (thanks Crestian!)</li>
+<li>Nordrassil Stag mount shows correct texture now</li>
+<li>Fixed Auberdine dock crash while keeping HD assets (HUGE THANKS to Watchers3D)</li>
+<li>Fixed Moonglade Night Elf inn leveling with bridge (thanks DozenBjorn!)</li>
+<li>Fixed green texture (Crane) structure found in SW and WSG</li>
+</ul>
+</div>
+<div class="entry" id="d-2027-08-28">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.1.3</p><p class="dateSub">2025.09.04</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>Updated all new NPCs included after 1.18 (Grim Reach, Balor, Northwind)</li>
+<li>Fixed Night Elf black beard color mismatch (thanks Watchers3D)</li>
+</ul>
+</div>
+<div class="entry" id="d-2027-08-28">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.1.2</p><p class="dateSub">2025.09.02</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>Characters hair and skin textures now match latest build from Watchers3D</li>
+<li>Restored original Drain Soul client file (potential fix for crashes vs skeletons)</li>
+<li>Fixed inconsistencies with ItemDisplayInfo (Undead helmet visual glitch fixes)</li>
+<li>Fixed texture glitch for Stag Mount added after 1.18</li>
+</ul>
+</div>
+<div class="entry" id="d-2027-08-28">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.1.1</p><p class="dateSub">2025.09.01</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>Added new HD texture for Magmalash Scorpid</li>
+<li>Revised skeleton NPCs + naming conventions (work-in-progress crash fixes)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2027-08-28">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.1.0</p><p class="dateSub">2025.08.28</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>Fixed all Furbolgs missing models around new night elf area Ursan Heights;</li>
+<li>Fixed bad texture on one of the rooted Ancient Keepers around elite area in Ursan Heights;</li>
+<li>Fixed missing model for new NPC Drethanis Mournshade;</li>
+<li>Fixed Zhevra Runner wrong unicorn model;</li>
+<li>Fixed Lupine Horror missing texture inside Shadowfang Keep (need to confirm that);</li>
+<li>Fixed Kilrogg boss missing model (not HD atm but at least we have a model, not a square ;)</li>
+<li>Fixed infamous Sylvannas Windrunner "double hood" bug;</li>
+<li>Fixed Paladin's Horse (Charger) saddle texture;</li>
+<li>Added "Pretty Night Sky" mod - no need to have that separate anymore;</li>
+<li>Added "Epoch Water" - best water texture available - also no need to have it as separate mod anymore;</li>
+<li>ALL missing item icons should be properly showing now;</li>
+<li>ALL new NPCs sounds and general sound effects are properly playing now;</li>
+<li>ALL new zones music is properly playing now.</li>
+<li>Several NPCs Fixed (missing models - showing as blue/white square before).</li>
+</ul>
+</div>
+    
+    
+    <div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-08-28">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.0.4</p><p class="dateSub">2025.08.28</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>Minor bug fixes</li>
+<li>Restored Warlock Dreadsteed mount to vanilla look</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-08-27">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.0.3</p><p class="dateSub">2025.08.27</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>All data from Watchers Patch-A (character only — updated 19.08.2025) incorporated</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-08-26">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.0.2</p><p class="dateSub">2025.08.26</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>Fixed crashes related to missing models</li>
+<li>Fixed infamous Sylvannas Windrunner "double hood" bug</li>
+<li>Fixed Paladin’s Horse (Charger) saddle texture</li>
+<li>Added features from Watchers Patch-A character only (extra skins)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-08-25">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.0.1</p><p class="dateSub">2025.08.25</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>Fixed crashes related to broken ItemDisplayInfo.dbc</li>
+<li>Added extra features from Watchers Patch-A character only</li>
+<li>Updated sound entries data (CreatureSoundData / NPCSounds / SoundEntries)</li>
+</ul>
+</div>
+<div class="sep">⋘───────⋙</div>
+</div>
+<div class="entry" id="d-2025-08-24">
+<div class="entryHeader">
+<div class="dateStack"><p class="ver">v1.0.0</p><p class="dateSub">2025.08.24</p></div>
+<a class="backTop" href="#top">Back to top ↑</a>
+</div>
+<div class="patchBlock">
+<p class="patchTitle">PATCH-A</p>
+<ul>
+<li>Missing models added (including new bakedNPCtextures)</li>
+<li>Fixed Zhevra Runner wrong model</li>
+<li>Fixed Lupine Horror missing texture inside Shadowfang Keep (confirm pending)</li>
+</ul>
+</div>
+</div>
+<!-- END -->
+</section>
+<footer>
+      Project Reforged — Patch Notes
+    </footer>
+</div>
+</body>
+</html>
