@@ -14,8 +14,8 @@ Users are responsible for using the project in accordance with the game’s term
 
 ## Scope
 
-* Visual enhancement through configuration and rendering optimization
-* Integration and organization of existing resources within the client environment
-* Performance-aware visual improvements
+- Visual enhancement through configuration and rendering optimization
+- Advanced graphical refinement using external tools and presets
+- Performance-aware visual improvements
 
 This project is intended for personal use only.
