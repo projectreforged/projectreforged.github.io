@@ -1,0 +1,12 @@
+{
+  "manifest_version": 1,
+  "generated_at_utc": "2026-03-01T00:00:00Z",
+  "patches": [
+    {
+      "id": "patch-a",
+      "file_name": "Patch-A.mpq",
+      "url": "https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/Patch-A.mpq",
+      "sha256": "720bff3d956267702d1e12279c0dad696e265efbb50622d61eb56b3a2fcfa711"
+    }
+  ]
+}
