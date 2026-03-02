@@ -44,12 +44,6 @@
       "sha256": "9a24d714165743ed74b30537221fa60454cbc1c8dbc00e91d898ac455b227e58"
     },
     {
-      "id": "patch-l",
-      "file_name": "Patch-L.mpq",
-      "url": "https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/Patch-L.mpq",
-      "sha256": "a9a0fcbf285e4856f6dc5303b3b8f9c8626cc1a6a100abbf914fc7000aa29405"
-    },
-    {
       "id": "patch-m",
       "file_name": "Patch-M.mpq",
       "url": "https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/Patch-M.mpq",
@@ -72,12 +66,6 @@
       "file_name": "Patch-S.mpq",
       "url": "https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/Patch-S.mpq",
       "sha256": "53d64c0e64a0e8f0ca7abe0b262a7df82c86c4ac05b4a177d88e9ff95961eea1"
-    },
-    {
-      "id": "patch-u",
-      "file_name": "Patch-U.mpq",
-      "url": "https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/Patch-U.mpq",
-      "sha256": "cbbf4ab615e97df3870690fa0cfbedc8a530c805aa0cc5c8a39eeffe81c68de0"
     },
     {
       "id": "patch-v",
