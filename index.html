@@ -280,7 +280,8 @@
 
 
     .innerCard{
-      background:rgba(255,255,255,.03);
+      background:linear-gradient(180deg,rgba(230,177,90,.10),rgba(230,177,90,.04));
+
       border:1px solid rgba(124,183,255,.25);
       border-radius:14px;
       padding:18px;
@@ -405,6 +406,21 @@
   font-size:.82rem;
   letter-spacing:.2px;
 }
+
+.badge-big{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(230,177,90,.22);
+  background:rgba(230,177,90,.08);
+  color:var(--gold);
+  font-weight:900;
+  font-size:1.0rem;
+  letter-spacing:.2px;
+}
+
 
 .releaseCTA{
   display:flex;
@@ -1341,6 +1357,27 @@ background: rgba(245,197,66,.08);
           </div>
         </section>
 
+  <div class="innerCard" style="margin-top:16px; text-align:left; border:1px solid rgba(212,175,55,0.2);">
+        <div class="badge-big" style="margin-bottom:10px;">🧩 Premium Highlight</div>
+
+        <h3 style="margin:0 0 8px 0; color:var(--gold); font-size:18px;">
+          Official Patch Manager
+        </h3>
+
+        <p class="note" style="margin:0 0 12px 0;">
+          Install, update and manage everything automatically — no manual setup, no guesswork. Most users switch to the Patch Manager for a faster, simpler and more reliable setup.
+        </p>
+
+        <p class="note" style="margin:0 0 14px 0; opacity:0.8;">
+          Available exclusively for Premium members.
+        </p>
+
+        <a class="btnPrimaryBig" href="#premium" style="font-size:18px; padding:10px 16px;">
+          Upgrade to the Patch Manager
+        </a>
+      </div>
+
+
 <section class="premium" id="premium">
   <div class="premium__inner">
     <header class="premium__head">
@@ -1376,10 +1413,10 @@ background: rgba(245,197,66,.08);
   <path d="M15.5 19H18c1.4 0 2.5-1.1 2.5-2.5V14" fill="none"/>
 </svg></div>
 
-<h3 class="premiumCard__title">Early & Experimental Builds</h3>
-        <p class="premiumCard__text">
-          Get new updates before release and test upcoming improvements first.
-        </p>
+<h3 class="premiumCard__title">Official Patch Manager</h3>
+  <p class="premiumCard__text">
+    Install, update and manage your entire setup automatically, with a clean and reliable workflow.
+  </p>
       </article>
 
 <article class="premiumCard premiumCard--featured">
