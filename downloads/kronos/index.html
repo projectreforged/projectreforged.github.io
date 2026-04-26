@@ -317,37 +317,69 @@
     </header>
 
 
-    <!-- DEPENDENCIES -->
-    <div id="dependencies" class="sectionTitle">Dependencies</div>
+    <!-- CLIENT SETUP -->
+    <div id="client-setup" class="sectionTitle">Client Setup</div>
 
     <p class="small" style="margin-top:-6px;">
-      Install these first. Required for proper functionality.
+      Prepare your game client before installing any patches. Start here.
     </p>
 
     <div class="grid">
 
       <section class="card">
         <div class="cardHead">
-          <h2 class="patchName">🧩 VanillaHelpers — Mandatory</h2>
+          <h2 class="patchName">🎮 Patched WoW.exe</h2>
           <div class="patchMeta">
             <span class="tag danger">Required</span>
-            <span class="tag">Core Dependency</span>
+            <span class="tag">Client</span>
           </div>
         </div>
-        <p class="desc"><b>VanillaHelpers</b> is required for Project Reforged to function properly.</p>
-        <div class="subchoices">
-          <div class="choice">
-            <div>
-              <b>Download VanillaHelpers</b>
-              <div class="small">Latest release from the official repository.</div>
-            </div>
-            <a class="btn primary" href="https://github.com/isfir/VanillaHelpers/releases" target="_blank" rel="noreferrer">Open Releases</a>
-          </div>
-          <p class="note" style="margin-top:10px;">
-            Installation: download <b>VanillaHelpers.dll</b> → copy it into your main <b>World of Warcraft</b> folder.
-          </p>
+        <p class="desc">
+          A pre-patched <b>WoW.exe</b> with two modifications applied: <b>VanillaTweaks</b> and <b>Vanilla Signature Removal</b>.
+          VanillaTweaks improves several 1.12 client limitations — including sound channels, nameplate range, terrain render distance, and Large Address Aware support (up to 4GB RAM).
+          Signature Removal is required for addons that enable auto-login.
+          Replace your original <b>WoW.exe</b> with this file.
+        </p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/extras/WoW.zip">Download</a>
         </div>
       </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">⚙️ VanillaFixes + DLL Pack</h2>
+          <div class="patchMeta">
+            <span class="tag danger">Required</span>
+            <span class="tag">Launcher + Mods</span>
+          </div>
+        </div>
+        <p class="desc">
+          VanillaFixes is an external launcher that fixes the stutter and animation lag caused by the 1.12 client's low-precision timer. It loads the DLL mods listed in <b>dlls.txt</b> at startup. Use it to launch the game instead of opening <b>WoW.exe</b> directly.
+        </p>
+        <p class="desc" style="margin-top:8px;">The included DLL Pack contains:</p>
+        <ul style="margin:6px 0 0; padding-left:18px; color:var(--muted); font-size:.93rem;">
+          <li><b>VfPatcher.dll</b> — core VanillaFixes patcher</li>
+          <li><b>SuperWoWhook.dll</b> — enables SuperWoW client extensions</li>
+          <li><b>VanillaHelpers.dll</b> — required for Project Reforged to function</li>
+          <li><b>UnitXP_SP3.dll</b> — unit frame and XP bar enhancements</li>
+          <li><b>nampower.dll</b> — eliminates spell queue lag on the 1.12 client</li>
+        </ul>
+        <p class="desc" style="margin-top:8px;">Place all files in your World of Warcraft folder and ensure they are listed in <b>dlls.txt</b>.</p>
+        <div class="ctaRow">
+          <a class="btn primary" href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/extras/VanillaFixes.zip">Download</a>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- DEPENDENCIES -->
+    <div id="dependencies" class="sectionTitle">Dependencies</div>
+
+    <p class="small" style="margin-top:-6px;">
+      Install these before the patch modules.
+    </p>
+
+    <div class="grid">
 
       <section class="card">
         <div class="cardHead">
