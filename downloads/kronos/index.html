@@ -324,6 +324,8 @@
       Prepare your game client before installing any patches. Start here.
     </p>
 
+    <p class="small" style="margin-top:6px; color:rgba(124,183,255,.9); font-weight:800;">⚡ Quick Install — Recommended for Kronos and unmodified 1.12 clients</p>
+
     <div class="grid">
 
       <section class="card">
@@ -332,13 +334,17 @@
           <div class="patchMeta">
             <span class="tag danger">Required</span>
             <span class="tag">Client</span>
+            <span class="tag kronos">⚔️ Kronos</span>
           </div>
         </div>
         <p class="desc">
-          A pre-patched <b>WoW.exe</b> with two modifications applied: <b>VanillaTweaks</b> and <b>Vanilla Signature Removal</b>.
+          A pre-patched <b>WoW.exe</b> with two modifications already applied: <b>VanillaTweaks</b> and <b>Vanilla Signature Removal</b>.
           VanillaTweaks improves several 1.12 client limitations — including sound channels, nameplate range, terrain render distance, and Large Address Aware support (up to 4GB RAM).
           Signature Removal is required for addons that enable auto-login.
           Replace your original <b>WoW.exe</b> with this file.
+        </p>
+        <p class="desc" style="margin-top:8px; color:rgba(240,198,116,.85);">
+          ⚠️ Tested and recommended for Kronos and unmodified vanilla 1.12 clients. If your client has already been modified, use the Manual Setup below instead.
         </p>
         <div class="ctaRow">
           <a class="btn primary" href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/extras/WoW.zip">Download</a>
@@ -367,6 +373,84 @@
         <p class="desc" style="margin-top:8px;">Place all files in your World of Warcraft folder and ensure they are listed in <b>dlls.txt</b>.</p>
         <div class="ctaRow">
           <a class="btn primary" href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/extras/VanillaFixes.zip">Download</a>
+        </div>
+      </section>
+
+    </div>
+
+    <p class="small" style="margin-top:18px; color:rgba(240,198,116,.9); font-weight:800;">🔧 Manual Install — For modified or incompatible clients</p>
+
+    <div class="grid">
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">🔧 Manual Setup — Apply Patches Yourself</h2>
+          <div class="patchMeta">
+            <span class="tag">Alternative</span>
+            <span class="tag warn">Advanced</span>
+          </div>
+        </div>
+        <p class="desc" style="margin-bottom:10px;">
+          For clients that cannot use the pre-patched WoW.exe above. Apply each tool individually, in the order listed.
+        </p>
+        <div class="subchoices">
+
+          <div class="choice">
+            <div style="flex:1;">
+              <b>1. VanillaTweaks</b>
+              <div class="small">Download the release for your OS → extract <b>vanilla_tweaks.exe</b> into your WoW folder → drag <b>WoW.exe</b> on top of it. This creates <b>WoW_tweaked.exe</b> with all patches applied. Use this file to launch the game from now on.</div>
+            </div>
+            <a class="btn primary" href="https://github.com/brndd/vanilla-tweaks/releases" target="_blank" rel="noreferrer" style="white-space:nowrap;">Repository</a>
+          </div>
+
+          <div class="choice">
+            <div style="flex:1;">
+              <b>2. Vanilla Signature Removal</b>
+              <div class="small">Removes the executable signature check, required for auto-login addons. Download the tool, place it in your WoW folder, and run it pointing to your <b>WoW.exe</b> (or <b>WoW_tweaked.exe</b> if VanillaTweaks was already applied). The file will be modified in place.</div>
+            </div>
+            <a class="btn primary" href="https://github.com/Stormhand-dev/Vanilla-Signature-Removal" target="_blank" rel="noreferrer" style="white-space:nowrap;">Repository</a>
+          </div>
+
+          <div class="choice">
+            <div style="flex:1;">
+              <b>3. VanillaFixes</b>
+              <div class="small">External launcher that fixes stuttering and animation lag caused by the 1.12 client's low-precision timer. Also loads all DLLs listed in <b>dlls.txt</b> at startup. Download, extract into your WoW folder, and always use <b>VanillaFixes.exe</b> to launch the game — not WoW.exe directly.</div>
+            </div>
+            <a class="btn primary" href="https://github.com/hannesmann/vanillafixes/releases" target="_blank" rel="noreferrer" style="white-space:nowrap;">Repository</a>
+          </div>
+
+          <div class="choice">
+            <div style="flex:1;">
+              <b>4. SuperWoW</b>
+              <div class="small">Adds modern client-side features used by advanced addons. Download <b>SuperWoWhook.dll</b>, place it in your WoW folder, and add its filename to <b>dlls.txt</b>. VanillaFixes will load it automatically at startup.</div>
+            </div>
+            <a class="btn primary" href="https://github.com/balakethelock/SuperWoW" target="_blank" rel="noreferrer" style="white-space:nowrap;">Repository</a>
+          </div>
+
+          <div class="choice">
+            <div style="flex:1;">
+              <b>5. nampower</b>
+              <div class="small">Fixes a structural flaw in the 1.12 client that adds extra latency between spell casts. Download <b>nampower.dll</b>, place it in your WoW folder, and add its filename to <b>dlls.txt</b>.</div>
+            </div>
+            <a class="btn primary" href="https://gitea.com/avitasia/nampower" target="_blank" rel="noreferrer" style="white-space:nowrap;">Repository</a>
+          </div>
+
+          <div class="choice">
+            <div style="flex:1;">
+              <b>6. UnitXP SP3</b>
+              <div class="small">Visual enhancements for XP bars and unit frames. Download <b>UnitXP_SP3.dll</b>, place it in your WoW folder, and add its filename to <b>dlls.txt</b>.</div>
+            </div>
+            <a class="btn primary" href="https://codeberg.org/konaka/UnitXP_SP3/releases" target="_blank" rel="noreferrer" style="white-space:nowrap;">Repository</a>
+          </div>
+
+          <div class="choice">
+            <div style="flex:1;">
+              <b>7. VanillaHelpers</b>
+              <div class="small">Required for Project Reforged to function. Download <b>VanillaHelpers.dll</b>, place it in your WoW folder, and add its filename to <b>dlls.txt</b>.</div>
+            </div>
+            <a class="btn primary" href="https://github.com/paokkerkir/VanillaHelpers64" target="_blank" rel="noreferrer" style="white-space:nowrap;">Repository</a>
+          </div>
+
         </div>
       </section>
 
