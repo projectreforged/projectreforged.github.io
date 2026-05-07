@@ -286,6 +286,36 @@
       font-size:.9rem;
       font-weight:700;
     }
+
+    .wtf-block{
+      background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:10px;
+      padding:14px 16px;
+      margin:0;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:.85rem;
+      color:rgba(180,215,255,.92);
+      line-height:1.8;
+      white-space:pre;
+      overflow-x:auto;
+    }
+
+    .copy-btn{
+      position:absolute;
+      top:10px;
+      right:10px;
+      background:rgba(124,183,255,.14);
+      border:1px solid rgba(124,183,255,.30);
+      border-radius:8px;
+      color:rgba(180,215,255,.95);
+      font-size:.78rem;
+      font-weight:800;
+      padding:4px 12px;
+      cursor:pointer;
+      transition:opacity .15s;
+    }
+    .copy-btn:hover{ opacity:.8; }
   </style>
 </head>
 
@@ -509,6 +539,30 @@
           <p class="note" style="margin-top:10px;">
             Installation: extract DXVK → open the folder → go to <b>x32</b> → copy <b>d3d9.dll</b> into your World of Warcraft folder.
           </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2 class="patchName">⚙️ Config.WTF — Recommended Settings</h2>
+          <div class="patchMeta">
+            <span class="tag danger">Required</span>
+            <span class="tag">Rendering</span>
+          </div>
+        </div>
+        <p class="desc">Add these lines to your <b>WTF/Config.WTF</b> file before launching. They enable D3D9 rendering, M2 shaders, and threaded model processing — required for the visual patches to display correctly.</p>
+        <div class="subchoices" style="margin-top:14px;">
+          <div style="position:relative;">
+            <pre class="wtf-block">SET gxApi "d3d9"
+SET M2UseShaders "1"
+SET M2UsePixelShaders "1"
+SET M2UseThreaded "1"
+SET gxColorBits "24"
+SET gxDepthBits "24"
+SET M2Faster "3"</pre>
+            <button class="copy-btn" onclick="copyWTF(this)">Copy</button>
+          </div>
+          <p class="note" style="margin-top:10px;">Open <b>WTF/Config.WTF</b> in a text editor and paste these lines. If any of them already exist in the file, replace their values with the ones above.</p>
         </div>
       </section>
 
@@ -777,5 +831,15 @@
     </footer>
 
   </div>
+  <script>
+    function copyWTF(btn) {
+      const text = btn.closest('.subchoices').querySelector('.wtf-block').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 1800);
+      });
+    }
+  </script>
 </body>
 </html>
