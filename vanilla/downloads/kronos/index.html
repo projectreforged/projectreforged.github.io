@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Downloads — Kronos — Project Reforged</title>
+  <meta name="description" content="Project Reforged modular HD patches for Kronos and standard vanilla 1.12 servers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base:      #070608;
+      --bg-surface:   #0d0b10;
+      --bg-elevated:  #131018;
+      --bg-card:      #100e15;
+      --gold-bright:  #e4c05a;
+      --gold-mid:     #c49a28;
+      --gold-dim:     #7a5e18;
+      --gold-faint:   rgba(196,154,40,0.12);
+      --text-primary: #ede6d8;
+      --text-body:    #c8bfaa;
+      --text-muted:   #8a7e6a;
+      --text-dim:     #4a4438;
+      --border:       #1e1a14;
+      --border-gold:  rgba(196,154,40,0.22);
+      --font-display: 'Cinzel Decorative', serif;
+      --font-heading: 'Cinzel', serif;
+      --font-body:    'Crimson Pro', serif;
+      --radius:       2px;
+      --max-w:        860px;
+      --c-core:    #7dc47a; --c-core-b:   rgba(125,196,122,0.3); --c-core-bg:   rgba(125,196,122,0.06);
+      --c-warn:    #e8c46a; --c-warn-b:   rgba(232,196,106,0.3); --c-warn-bg:   rgba(232,196,106,0.07);
+      --c-req:     #e8803a; --c-req-b:    rgba(232,128,58,0.3);  --c-req-bg:    rgba(232,128,58,0.06);
+      --c-kronos:  #8ab8d4; --c-kronos-b: rgba(138,184,212,0.3); --c-kronos-bg: rgba(138,184,212,0.06);
+      --c-opt:     #8a7e6a; --c-opt-b:    rgba(138,126,106,0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 18px; }
+    body { background: var(--bg-base); color: var(--text-body); font-family: var(--font-body); font-size: clamp(1rem,1.2vw,1.1rem); line-height: 1.75; overflow-x: hidden; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:0.025; pointer-events:none; z-index:9999; }
+    ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg-base); } ::-webkit-scrollbar-thumb { background:var(--gold-dim); border-radius:3px; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 clamp(1.25rem,5vw,2.5rem); height:64px; background:rgba(7,6,8,0.97); border-bottom:1px solid var(--border-gold); }
+    .nav-brand { font-family:var(--font-heading); font-size:0.88rem; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; background:linear-gradient(135deg,var(--gold-bright),var(--gold-mid)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .nav-links { display:flex; align-items:center; gap:0.25rem; list-style:none; }
+    .nav-links a { font-family:var(--font-heading); font-size:0.78rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); padding:0.5rem 0.8rem; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--gold-bright); }
+    .nav-links .active a { color:var(--gold-mid); }
+
+    .page-header { padding:8rem clamp(1.25rem,5vw,2.5rem) 3.5rem; text-align:center; background:linear-gradient(to bottom,rgba(120,80,5,0.06),transparent); border-bottom:1px solid var(--border); }
+    .server-pill { display:inline-flex; align-items:center; gap:0.5rem; font-family:var(--font-heading); font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--c-kronos); border:1px solid var(--c-kronos-b); background:var(--c-kronos-bg); padding:0.3rem 1rem; border-radius:100px; margin-bottom:1rem; }
+    .compat-note { display:inline-flex; align-items:center; gap:0.5rem; font-family:var(--font-heading); font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--c-core); border:1px solid var(--c-core-b); background:var(--c-core-bg); padding:0.3rem 1rem; border-radius:100px; margin-bottom:1rem; margin-left:0.5rem; }
+    .page-label { font-family:var(--font-heading); font-size:0.78rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:0.75rem; }
+    .page-title { font-family:var(--font-display); font-size:clamp(1.8rem,4vw,2.8rem); background:linear-gradient(135deg,var(--gold-bright) 0%,#f5d97a 40%,var(--gold-mid) 70%,#8a6010 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:1rem; }
+    .page-desc { font-family:var(--font-body); font-size:1rem; font-style:italic; color:var(--text-muted); max-width:540px; margin:0 auto; line-height:1.65; }
+    .page-desc .kronos-tag { font-style:normal; font-family:var(--font-heading); font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--c-kronos); border:1px solid var(--c-kronos-b); background:var(--c-kronos-bg); padding:0.1rem 0.45rem; border-radius:2px; vertical-align:middle; }
+
+    .main { max-width:var(--max-w); margin:0 auto; padding:4rem clamp(1.25rem,5vw,2.5rem) 6rem; display:flex; flex-direction:column; gap:3rem; }
+
+    .dl-group { display:flex; flex-direction:column; gap:0.75rem; }
+    .group-header { display:flex; align-items:center; gap:1.2rem; margin-bottom:0.5rem; }
+    .group-header::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--gold-dim),transparent); }
+    .group-label { font-family:var(--font-heading); font-size:0.88rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--gold-mid); white-space:nowrap; }
+    .group-sublabel { font-family:var(--font-heading); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:0.75rem; }
+    .sublabel-quick { color:var(--c-kronos); }
+    .sublabel-manual { color:var(--c-warn); }
+
+    .banner { background:var(--bg-elevated); border:1px solid var(--border); border-left:3px solid var(--gold-dim); border-radius:var(--radius); padding:1rem 1.25rem; font-size:0.95rem; color:var(--text-muted); line-height:1.65; }
+    .banner strong { color:var(--text-primary); }
+
+    .dl-card { background:var(--bg-card); border:1px solid var(--border-gold); border-radius:var(--radius); overflow:hidden; transition:border-color 0.3s, box-shadow 0.3s; }
+    .dl-card:hover { border-color:rgba(196,154,40,0.4); box-shadow:0 0 30px rgba(196,154,40,0.07); }
+    .dl-card-inner { display:grid; grid-template-columns:3rem 1fr auto; gap:1.25rem; align-items:center; padding:1.25rem 1.5rem; }
+    @media(max-width:600px) { .dl-card-inner { grid-template-columns:3rem 1fr; } .dl-actions { grid-column:2; padding-bottom:1rem; } }
+    .dl-icon { font-size:1.5rem; text-align:center; }
+    .dl-title-row { display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.25rem; }
+    .dl-patch { font-family:var(--font-heading); font-size:0.80rem; letter-spacing:0.13em; text-transform:uppercase; color:var(--gold-mid); background:var(--gold-faint); border:1px solid var(--border-gold); padding:0.1rem 0.5rem; border-radius:2px; }
+    .dl-name { font-family:var(--font-heading); font-size:1.05rem; letter-spacing:0.06em; color:var(--text-primary); }
+    .dl-badges { display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.4rem; }
+    .badge { font-family:var(--font-heading); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.1rem 0.5rem; border-radius:2px; border:1px solid; }
+    .badge-core   { color:var(--c-core);   border-color:var(--c-core-b);   background:var(--c-core-bg); }
+    .badge-warn   { color:var(--c-warn);   border-color:var(--c-warn-b);   background:var(--c-warn-bg); }
+    .badge-req    { color:var(--c-req);    border-color:var(--c-req-b);    background:var(--c-req-bg); }
+    .badge-kronos { color:var(--c-kronos); border-color:var(--c-kronos-b); background:var(--c-kronos-bg); }
+    .badge-opt    { color:var(--c-opt);    border-color:var(--c-opt-b);    background:rgba(138,126,106,0.05); }
+    .dl-desc { font-size:0.95rem; color:var(--text-muted); line-height:1.6; }
+    .dl-desc strong { color:var(--text-primary); }
+    .dl-desc-warning { font-size:0.9rem; color:rgba(232,196,106,0.85); margin-top:0.5rem; line-height:1.55; }
+    .dl-list { margin:0.5rem 0 0 1.1rem; font-size:0.92rem; color:var(--text-muted); line-height:1.7; }
+    .dl-list li strong { color:var(--text-primary); }
+    .dl-version { font-family:var(--font-heading); font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-muted); margin-top:0.35rem; }
+    .dl-version .updated { color:var(--gold-mid); }
+    .dl-actions { display:flex; flex-direction:column; gap:0.5rem; min-width:130px; }
+
+    .btn-dl { display:inline-flex; align-items:center; justify-content:center; gap:0.4rem; font-family:var(--font-heading); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; padding:0.6rem 1.1rem; border-radius:var(--radius); border:1px solid; cursor:pointer; transition:all 0.22s; white-space:nowrap; }
+    .btn-primary  { background:linear-gradient(135deg,var(--gold-mid),var(--gold-bright),var(--gold-mid)); background-size:200% 100%; background-position:100% 0; color:#0a0800; font-weight:700; border-color:transparent; }
+    .btn-primary:hover { background-position:0 0; box-shadow:0 0 20px rgba(196,154,40,0.3); }
+    .btn-secondary { background:transparent; color:var(--text-muted); border-color:var(--border); }
+    .btn-secondary:hover { color:var(--gold-bright); border-color:var(--border-gold); }
+    .btn-external  { background:transparent; color:var(--gold-mid); border-color:var(--border-gold); }
+    .btn-external:hover { background:var(--gold-faint); color:var(--gold-bright); }
+
+    .dl-variants { border-top:1px solid var(--border); padding:0 1.5rem 1.25rem; display:flex; flex-direction:column; gap:0.75rem; }
+    .dl-variant { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; padding-top:0.75rem; }
+    .dl-variant + .dl-variant { border-top:1px solid var(--border); }
+    .dl-variant-name { font-family:var(--font-heading); font-size:0.78rem; letter-spacing:0.08em; color:var(--text-primary); margin-bottom:0.2rem; }
+    .dl-variant-sub { font-size:0.88rem; font-style:italic; color:var(--text-dim); }
+    .dl-variant-body { flex:1; }
+    .dl-note { margin-top:0.5rem; font-size:0.88rem; color:var(--text-muted); line-height:1.6; }
+    .dl-note strong { color:var(--text-primary); }
+
+    /* Step variants (manual setup) */
+    .dl-step { display:flex; gap:1rem; align-items:flex-start; padding-top:0.75rem; }
+    .dl-step + .dl-step { border-top:1px solid var(--border); }
+    .step-num { font-family:var(--font-display); font-size:1.1rem; color:var(--gold-dim); min-width:1.5rem; opacity:0.6; line-height:1.3; }
+    .step-content { flex:1; }
+    .step-name { font-family:var(--font-heading); font-size:0.78rem; letter-spacing:0.08em; color:var(--text-primary); margin-bottom:0.3rem; }
+    .step-desc { font-size:0.9rem; color:var(--text-muted); line-height:1.6; }
+    .step-desc strong { color:var(--text-primary); }
+
+    /* WTF code block */
+    .wtf-wrap { position:relative; }
+    .wtf-block { display:block; background:rgba(0,0,0,0.4); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.25rem; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:0.88rem; color:rgba(180,215,255,0.92); line-height:1.9; white-space:pre; overflow-x:auto; }
+    .copy-btn { position:absolute; top:0.5rem; right:0.5rem; font-family:var(--font-heading); font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; background:var(--c-kronos-bg); border:1px solid var(--c-kronos-b); color:var(--c-kronos); padding:0.3rem 0.75rem; border-radius:var(--radius); cursor:pointer; transition:all 0.2s; }
+    .copy-btn:hover { background:rgba(138,184,212,0.15); }
+
+    /* Sub-addons */
+    .required-addons { margin-top:1rem; background:var(--bg-elevated); border:1px solid var(--border); border-left:3px solid var(--c-req-b); border-radius:var(--radius); padding:1rem 1.25rem; font-size:0.9rem; color:var(--text-muted); }
+    .required-addons strong { color:var(--text-primary); display:block; margin-bottom:0.75rem; }
+
+    footer { border-top:1px solid var(--border); padding:3rem clamp(1.25rem,5vw,2.5rem); }
+    .footer-inner { max-width:var(--max-w); margin:0 auto; display:flex; flex-direction:column; gap:1.5rem; }
+    .footer-top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem; }
+    .footer-brand { font-family:var(--font-heading); font-size:0.82rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold-dim); }
+    .footer-links { display:flex; gap:0.25rem; list-style:none; flex-wrap:wrap; }
+    .footer-links a { font-family:var(--font-heading); font-size:0.74rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); padding:0.3rem 0.6rem; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--gold-mid); }
+    .footer-choose { display:flex; justify-content:center; padding-top:1.25rem; border-top:1px solid var(--border); }
+    .footer-choose a { font-family:var(--font-heading); font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-dim); transition:color 0.2s; }
+    .footer-choose a:hover { color:var(--gold-mid); }
+    .footer-bottom { font-size:0.88rem; color:var(--text-dim); text-align:center; padding-top:1.5rem; border-top:1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../../" class="nav-brand">Project Reforged</a>
+    <ul class="nav-links">
+      <li><a href="../../">Home</a></li>
+      <li><a href="../">Downloads</a></li>
+      <li class="active"><a href="#">Kronos</a></li>
+      <li><a href="../../changelog.html">Changelog</a></li>
+      <li><a href="../../#support">Support</a></li>
+      <li><a href="https://discord.gg/jnvkayMbqJ">Discord</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div>
+      <span class="server-pill">⚔️ Kronos</span>
+      <span class="compat-note">✓ Any standard vanilla 1.12 server</span>
+    </div>
+    <div class="page-label">Modular Patch Library · Vanilla 1.12</div>
+    <h1 class="page-title">Downloads</h1>
+    <p class="page-desc">Project Reforged is fully modular — install only what you need. Modules marked <span class="kronos-tag">⚔️ Kronos</span> are specific to this server.</p>
+  </div>
+
+  <main class="main">
+
+    <!-- Client Setup -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Client Setup — Start Here</span></div>
+
+      <div class="group-sublabel sublabel-quick">⚡ Quick Install — Recommended for Kronos and unmodified 1.12 clients</div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🎮</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">Patched WoW.exe</span></div>
+            <div class="dl-badges"><span class="badge badge-req">Required</span><span class="badge badge-kronos">⚔️ Kronos</span></div>
+            <div class="dl-desc">A pre-patched <strong>WoW.exe</strong> with <strong>VanillaTweaks</strong> and <strong>Vanilla Signature Removal</strong> already applied. VanillaTweaks improves sound channels, nameplate range, terrain render distance, and Large Address Aware support (up to 4GB RAM). Signature Removal is required for addons that enable auto-login. Replace your original <strong>WoW.exe</strong> with this file.</div>
+            <div class="dl-desc-warning">⚠️ Tested and recommended for Kronos and unmodified vanilla 1.12 clients. If your client has already been modified, use the Manual Setup below instead.</div>
+          </div>
+          <div class="dl-actions">
+            <a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/extras/WoW.zip" class="btn-dl btn-primary">Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">⚙️</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">VanillaFixes + DLL Pack</span></div>
+            <div class="dl-badges"><span class="badge badge-req">Required</span></div>
+            <div class="dl-desc">VanillaFixes is an external launcher that fixes stutter and animation lag caused by the 1.12 client's low-precision timer. Use it to launch the game instead of opening <strong>WoW.exe</strong> directly. The DLL Pack includes:</div>
+            <ul class="dl-list">
+              <li><strong>VfPatcher.dll</strong> — core VanillaFixes patcher</li>
+              <li><strong>SuperWoWhook.dll</strong> — enables SuperWoW client extensions</li>
+              <li><strong>VanillaHelpers.dll</strong> — required for Project Reforged to function</li>
+              <li><strong>UnitXP_SP3.dll</strong> — unit frame and XP bar enhancements</li>
+              <li><strong>nampower.dll</strong> — eliminates spell queue lag on the 1.12 client</li>
+            </ul>
+          </div>
+          <div class="dl-actions">
+            <a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/extras/VanillaFixes.zip" class="btn-dl btn-primary">Download</a>
+          </div>
+        </div>
+        <div class="required-addons">
+          <strong>⚠️ Required Addons — place in Interface/AddOns</strong>
+          <div class="dl-variants" style="border:none; padding:0;">
+            <div class="dl-variant" style="padding-top:0;">
+              <div class="dl-variant-body"><div class="dl-variant-name">UnitXP SP3 Addon</div><div class="dl-variant-sub">Required for the UnitXP_SP3.dll mod to work.</div></div>
+              <a href="https://codeberg.org/konaka/UnitXP_SP3/releases" class="btn-dl btn-external" target="_blank">Repository →</a>
+            </div>
+            <div class="dl-variant">
+              <div class="dl-variant-body"><div class="dl-variant-name">SuperAPI</div><div class="dl-variant-sub">Required for the SuperWoWhook.dll mod to work.</div></div>
+              <a href="https://github.com/balakethelock/SuperAPI" class="btn-dl btn-external" target="_blank">Repository →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="group-sublabel sublabel-manual" style="margin-top:1rem;">🔧 Manual Install — For modified or incompatible clients</div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🔧</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">Manual Setup</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Alternative</span><span class="badge badge-warn">Advanced</span></div>
+            <div class="dl-desc">For clients that cannot use the pre-patched WoW.exe above. Apply each tool individually, in order.</div>
+          </div>
+          <div class="dl-actions"></div>
+        </div>
+        <div class="dl-variants">
+          <div class="dl-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-name">Vanilla Signature Removal</div>
+              <div class="step-desc">Removes the executable signature check — required for auto-login addons. Place the tool in your WoW folder, drag <strong>WoW.exe</strong> on top of it. The file is modified in place. Make a backup of your original WoW.exe first.</div>
+            </div>
+            <a href="https://github.com/Stormhand-dev/Vanilla-Signature-Removal" class="btn-dl btn-external" target="_blank" style="flex-shrink:0;">Repository →</a>
+          </div>
+          <div class="dl-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-name">VanillaTweaks</div>
+              <div class="step-desc">Extract <strong>vanilla_tweaks.exe</strong> into your WoW folder, drag <strong>WoW.exe</strong> on top of it. This creates <strong>WoW_tweaked.exe</strong> — rename it to WoW.exe.</div>
+            </div>
+            <a href="https://github.com/brndd/vanilla-tweaks/releases" class="btn-dl btn-external" target="_blank" style="flex-shrink:0;">Repository →</a>
+          </div>
+          <div class="dl-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-name">VanillaFixes</div>
+              <div class="step-desc">External launcher that fixes stuttering and animation lag. Extract into your WoW folder and always launch via <strong>VanillaFixes.exe</strong>, not WoW.exe directly.</div>
+            </div>
+            <a href="https://github.com/hannesmann/vanillafixes/releases" class="btn-dl btn-external" target="_blank" style="flex-shrink:0;">Repository →</a>
+          </div>
+          <div class="dl-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <div class="step-name">SuperWoW</div>
+              <div class="step-desc">Adds modern client-side features used by advanced addons. Place <strong>SuperWoWhook.dll</strong> in your WoW folder and add its filename to <strong>dlls.txt</strong>.</div>
+            </div>
+            <a href="https://github.com/balakethelock/SuperWoW" class="btn-dl btn-external" target="_blank" style="flex-shrink:0;">Repository →</a>
+          </div>
+          <div class="dl-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <div class="step-name">nampower</div>
+              <div class="step-desc">Fixes extra latency between spell casts. Place <strong>nampower.dll</strong> in your WoW folder and add its filename to <strong>dlls.txt</strong>.</div>
+            </div>
+            <a href="https://gitea.com/avitasia/nampower" class="btn-dl btn-external" target="_blank" style="flex-shrink:0;">Repository →</a>
+          </div>
+          <div class="dl-step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <div class="step-name">UnitXP SP3</div>
+              <div class="step-desc">Visual enhancements for XP bars and unit frames. Place <strong>UnitXP_SP3.dll</strong> in your WoW folder and add its filename to <strong>dlls.txt</strong>.</div>
+            </div>
+            <a href="https://codeberg.org/konaka/UnitXP_SP3/releases" class="btn-dl btn-external" target="_blank" style="flex-shrink:0;">Repository →</a>
+          </div>
+          <div class="dl-step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+              <div class="step-name">VanillaHelpers</div>
+              <div class="step-desc">Required for Project Reforged to function. Place <strong>VanillaHelpers.dll</strong> in your WoW folder and add its filename to <strong>dlls.txt</strong>.</div>
+            </div>
+            <a href="https://github.com/paokkerkir/VanillaHelpers64" class="btn-dl btn-external" target="_blank" style="flex-shrink:0;">Repository →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dependencies -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Dependencies — Install Before Patches</span></div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">⚙️</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">DXVK</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Optional</span><span class="badge badge-opt">Rendering</span></div>
+            <div class="dl-desc">Improves the Direct3D 9 pipeline — better stability and compatibility, especially with ReShade. Extract, open <strong>x32</strong>, copy <strong>d3d9.dll</strong> into your WoW folder.</div>
+          </div>
+          <div class="dl-actions"></div>
+        </div>
+        <div class="dl-variants">
+          <div class="dl-variant">
+            <div><div class="dl-variant-name">DXVK 2.7.1</div><div class="dl-variant-sub">Latest recommended version</div></div>
+            <a href="https://github.com/doitsujin/dxvk/releases/download/v2.7.1/dxvk-2.7.1.tar.gz" class="btn-dl btn-primary">Download</a>
+          </div>
+          <div class="dl-variant">
+            <div><div class="dl-variant-name">DXVK 2.5.3</div><div class="dl-variant-sub">Alternative / fallback version</div></div>
+            <a href="https://github.com/doitsujin/dxvk/releases/download/v2.5.3/dxvk-2.5.3.tar.gz" class="btn-dl btn-secondary">Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">📄</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">Config.WTF — Recommended Settings</span></div>
+            <div class="dl-badges"><span class="badge badge-req">Required</span><span class="badge badge-opt">Rendering</span></div>
+            <div class="dl-desc">Add these lines to your <strong>WTF/Config.WTF</strong> file before launching. They enable D3D9 rendering, M2 shaders, and threaded model processing — required for the visual patches to display correctly.</div>
+          </div>
+          <div class="dl-actions"></div>
+        </div>
+        <div class="dl-variants">
+          <div class="dl-variant" style="flex-direction:column; align-items:stretch;">
+            <div class="wtf-wrap">
+              <pre class="wtf-block">SET gxApi "d3d9"
+SET M2UseShaders "1"
+SET M2UsePixelShaders "1"
+SET M2UseThreaded "1"
+SET gxColorBits "24"
+SET gxDepthBits "24"
+SET M2Faster "3"</pre>
+              <button class="copy-btn" onclick="copyWTF(this)">Copy</button>
+            </div>
+            <p class="dl-note" style="margin-top:0.75rem;">Open <strong>WTF/Config.WTF</strong> in a text editor and paste these lines. If any already exist, replace their values with the ones above.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner"><strong>Important:</strong> Patches <strong>B + D + E</strong> are one large environment/world set. Install them together, or not at all.</div>
+
+    <!-- Core -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Core Modules</span></div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🧙</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-A</span><span class="dl-name">Player Characters & NPCs</span></div>
+            <div class="dl-badges"><span class="badge badge-kronos">⚔️ Kronos</span><span class="badge badge-core">Core</span></div>
+            <div class="dl-desc">Character and NPC visuals for the standard vanilla 1.12 roster. Foundation for Patch-L, T and U.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.5.1</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/patch-A.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🏰</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-B</span><span class="dl-name">Buildings</span></div>
+            <div class="dl-badges"><span class="badge badge-warn">Install with D + E</span></div>
+            <div class="dl-desc">Part of the Environment & World set.</div>
+            <div class="dl-version">v5.0.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-B.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🐉</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-C</span><span class="dl-name">Creatures</span></div>
+            <div class="dl-badges"><span class="badge badge-core">Core</span></div>
+            <div class="dl-desc">Creatures and related assets for the classic client.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.5.1</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-C.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🌿</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-D</span><span class="dl-name">Doodads</span></div>
+            <div class="dl-badges"><span class="badge badge-warn">Install with B + E</span></div>
+            <div class="dl-desc">World doodads and textures.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.4.2</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-D.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🌄</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-E</span><span class="dl-name">Environment</span></div>
+            <div class="dl-badges"><span class="badge badge-warn">Install with B + D</span><span class="badge badge-opt">Includes Fog Pushback</span></div>
+            <div class="dl-desc">Environment textures and world visuals, including Fog Pushback integration.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.4.1</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-E.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">⚔️</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-G</span><span class="dl-name">Gear & Weapons</span></div>
+            <div class="dl-badges"><span class="badge badge-core">Core</span></div>
+            <div class="dl-desc">Gear and weapon visuals used by multiple enhancements.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.4.1</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-G.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🧭</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-I</span><span class="dl-name">Interface</span></div>
+            <div class="dl-badges"><span class="badge badge-kronos">⚔️ Kronos</span><span class="badge badge-opt">Includes Selection Circle Textures</span></div>
+            <div class="dl-desc">Interface visuals and SuperWoW selection circle texture support, tuned for the Kronos client.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.5.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/patch-I.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Optional Enhancements</span></div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">💃</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-L</span><span class="dl-name">A Little Extra for Females</span></div>
+            <div class="dl-badges"><span class="badge badge-req">Requires Patch-A</span></div>
+            <div class="dl-desc">Optional body model enhancement. Install only one variant.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.5.0</div>
+          </div>
+          <div class="dl-actions"></div>
+        </div>
+        <div class="dl-variants">
+          <div class="dl-variant">
+            <div><div class="dl-variant-name">Regular Version</div><div class="dl-variant-sub">by Watchers3D</div></div>
+            <a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-L.mpq" class="btn-dl btn-primary">Download</a>
+          </div>
+          <div class="dl-variant">
+            <div><div class="dl-variant-name">Less Thicc Version</div><div class="dl-variant-sub">by Deezhugs</div></div>
+            <a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/extras/patch-L.mpq" class="btn-dl btn-secondary">Download</a>
+          </div>
+          <p class="dl-note">Install <strong>only one</strong> Patch-L version.</p>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🗺️</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-M</span><span class="dl-name">Maps & Loading Screens</span></div>
+            <div class="dl-badges"><span class="badge badge-kronos">⚔️ Kronos</span><span class="badge badge-opt">Optional</span></div>
+            <div class="dl-desc">Enhanced maps and loading screens for the standard vanilla zones.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.5.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/kronos/patch-M.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🌑</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-N</span><span class="dl-name">Darker Nights</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Optional</span></div>
+            <div class="dl-desc">Darker nights for a more atmospheric experience.</div>
+            <div class="dl-version">v5.0.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-N.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🪄</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-P</span><span class="dl-name">Particle Effects for Spells</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Optional</span></div>
+            <div class="dl-desc">Spell visuals and effect enhancements.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.5.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-P.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Audio</span></div>
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🎵</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-S</span><span class="dl-name">Sounds & Music</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Optional</span></div>
+            <div class="dl-desc">Sound and music enhancements for a richer audio experience.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.3.4</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-S.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HD Tier -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">HD Tier</span></div>
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">✨</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-T</span><span class="dl-name">HD Character & Gear Textures</span></div>
+            <div class="dl-badges"><span class="badge badge-req">Requires A + G</span><span class="badge badge-core">Base Layer</span></div>
+            <div class="dl-desc">High-definition textures for characters and gear. Use Standard as standalone, or Ultra Base if you plan to install Patch-U.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.5.0</div>
+          </div>
+          <div class="dl-actions"></div>
+        </div>
+        <div class="dl-variants">
+          <div class="dl-variant">
+            <div><div class="dl-variant-name">Standard (Standalone)</div><div class="dl-variant-sub">Balanced quality and performance. Use if not installing Patch-U.</div></div>
+            <a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/extras/patch-T.mpq" class="btn-dl btn-primary">Download</a>
+          </div>
+          <div class="dl-variant">
+            <div><div class="dl-variant-name">Ultra Base</div><div class="dl-variant-sub">Required if using Patch-U. Do not use with Standard.</div></div>
+            <a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-T.mpq" class="btn-dl btn-secondary">Download</a>
+          </div>
+          <p class="dl-note">Do <strong>not</strong> install both versions of Patch-T.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ultra Tier -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Ultra Tier</span></div>
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">💎</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-U</span><span class="dl-name">Ultra HD Character & Gear Textures</span></div>
+            <div class="dl-badges"><span class="badge badge-req">Requires A + G + T (Ultra Base)</span><span class="badge badge-warn">Heavy</span></div>
+            <div class="dl-desc">Ultra high-definition textures for characters and gear. Built on top of Patch-T (Ultra Base) for maximum detail and fidelity.</div>
+            <div class="dl-version"><span class="updated">Updated</span> · v5.5.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/patches/patch-U.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <span class="footer-brand">Project Reforged</span>
+        <ul class="footer-links">
+          <li><a href="../">← All Servers</a></li>
+          <li><a href="../../changelog.html">Changelog</a></li>
+          <li><a href="https://discord.gg/jnvkayMbqJ">Discord</a></li>
+          <li><a href="https://ko-fi.com/projectreforged">Ko-fi</a></li>
+        </ul>
+      </div>
+      <div class="footer-choose">
+        <a href="../../../">← Choose Version</a>
+      </div>
+      <div class="footer-bottom">
+        Project Reforged is not affiliated with or endorsed by Blizzard Entertainment.<br>
+        World of Warcraft® is a registered trademark of Blizzard Entertainment.<br>
+        <span style="color:var(--gold-dim);">© Project Reforged — 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function copyWTF(btn) {
+      const text = btn.closest('.dl-variant').querySelector('.wtf-block').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 1800);
+      });
+    }
+  </script>
+
+</body>
+</html>
