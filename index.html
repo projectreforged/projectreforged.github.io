@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Reforged</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:        #c49a28;
+      --gold-bright: #e4c05a;
+      --gold-dim:    #7a5e18;
+      --v-accent:    #e4c05a;
+      --w-accent:    #aad4ee;
+      --font-d: 'Cinzel Decorative', serif;
+      --font-h: 'Cinzel', serif;
+      --font-b: 'Crimson Pro', serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #050505; font-family: var(--font-b); }
+
+    /* noise */
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.028;
+    }
+
+    /* ── Loader ── */
+    #loader {
+      position: fixed; inset: 0; z-index: 1000;
+      background: #050505;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4rem;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #loader.out { opacity: 0; visibility: hidden; }
+    .ld-name {
+      font-family: var(--font-d); font-size: clamp(0.9rem, 2vw, 1.4rem);
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      opacity: 0; animation: fdIn 0.5s 0.3s ease forwards;
+    }
+    .ld-bar { width: 140px; height: 1px; background: rgba(196,154,40,0.12); overflow: hidden; opacity: 0; animation: fdIn 0.4s 0.5s ease forwards; }
+    .ld-fill { height: 100%; background: linear-gradient(90deg, transparent, var(--gold), var(--gold-bright), var(--gold), transparent); transform: translateX(-100%); animation: slideR 1.1s 0.6s ease forwards; }
+    @keyframes fdIn   { to { opacity: 1; } }
+    @keyframes slideR { to { transform: translateX(100%); } }
+
+    /* ── Stage ── */
+    #stage {
+      position: fixed; inset: 0; z-index: 10;
+      display: flex;
+      opacity: 0; transition: opacity 0.7s ease;
+    }
+    #stage.on { opacity: 1; }
+
+    /* ── Panels ── */
+    .panel {
+      position: relative;
+      flex: 1; overflow: hidden; cursor: pointer;
+      transition: flex 0.75s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* bg */
+    .panel-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: transform 0.95s cubic-bezier(0.4,0,0.2,1), filter 0.65s ease;
+      filter: brightness(0.5) saturate(0.65);
+      transform: scale(1.07);
+    }
+    .panel.active .panel-bg { transform: scale(1.0); filter: brightness(0.75) saturate(1.15); }
+    .pv .panel-bg { background-image: url('assets/bg-vanilla.jpg'); }
+    .pw .panel-bg { background-image: url('assets/bg-wotlk.jpg'); }
+
+    /* tint */
+    .panel-tint { position: absolute; inset: 0; }
+    .pv .panel-tint { background: linear-gradient(135deg, rgba(18,10,0,0.65) 0%, rgba(70,44,4,0.25) 50%, rgba(18,10,0,0.55) 100%); }
+    .pw .panel-tint { background: linear-gradient(135deg, rgba(0,4,18,0.68) 0%, rgba(8,24,52,0.3)  50%, rgba(0,4,18,0.62) 100%); }
+
+    /* fade-to-black for inactive */
+    .panel-dark {
+      position: absolute; inset: 0; z-index: 5;
+      background: #000; opacity: 0; pointer-events: none;
+      transition: opacity 0.75s cubic-bezier(0.4,0,0.2,1);
+    }
+    .panel.inactive .panel-dark { opacity: 0.85; }
+
+    /* edge vignette */
+    .panel::before {
+      content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    }
+    .pv::before { background: linear-gradient(to right, rgba(0,0,0,0.55) 0%, transparent 28%, transparent 72%, rgba(0,0,0,0.2) 100%); }
+    .pw::before { background: linear-gradient(to left,  rgba(0,0,0,0.55) 0%, transparent 28%, transparent 72%, rgba(0,0,0,0.2) 100%); }
+
+    /* content — absolute fill so centering always works */
+    .panel-content {
+      position: absolute; inset: 0; z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.1rem; text-align: center; padding: 2.5rem;
+    }
+
+    /* particles layer */
+    .panel-particles { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+
+    /* content elements — animated in */
+    .client-tag {
+      font-family: var(--font-h); font-size: clamp(0.65rem, 0.85vw, 0.8rem);
+      letter-spacing: 0.26em; text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 100px; border: 1px solid;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.55s 0.1s ease, transform 0.55s 0.1s ease;
+    }
+    .pv .client-tag { color: var(--v-accent); border-color: rgba(196,154,40,0.4); background: rgba(196,154,40,0.08); }
+    .pw .client-tag { color: var(--w-accent); border-color: rgba(122,172,206,0.4); background: rgba(100,160,210,0.08); }
+
+    .panel-title {
+      font-family: var(--font-d); font-size: clamp(1.1rem, 2.1vw, 1.7rem);
+      line-height: 1.15;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.55s 0.18s ease, transform 0.55s 0.18s ease;
+    }
+    .pv .panel-title {
+      background: linear-gradient(135deg, var(--gold-bright) 0%, #f8e68a 45%, var(--gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 16px rgba(196,154,40,0.38));
+    }
+    .pw .panel-title {
+      background: linear-gradient(135deg, #cce8f6 0%, var(--w-accent) 45%, #7aacce 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 16px rgba(100,160,210,0.42));
+    }
+
+    .panel-subtitle {
+      font-family: var(--font-h); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+      letter-spacing: 0.1em; font-weight: 500;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.55s 0.25s ease, transform 0.55s 0.25s ease;
+    }
+    .pv .panel-subtitle { color: rgba(228,192,90,0.78); }
+    .pw .panel-subtitle { color: rgba(170,212,238,0.78); }
+
+    .panel-line {
+      width: clamp(36px, 5vw, 55px); height: 1px;
+      opacity: 0; transform: scaleX(0);
+      transition: opacity 0.5s 0.32s ease, transform 0.55s 0.32s ease;
+    }
+    .pv .panel-line { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .pw .panel-line { background: linear-gradient(90deg, transparent, #7aacce, transparent); }
+
+    .panel-desc {
+      font-family: var(--font-b); font-style: italic;
+      font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+      color: rgba(200,190,172,0.62); max-width: 240px; line-height: 1.62;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.55s 0.38s ease, transform 0.55s 0.38s ease;
+    }
+
+    .panel-cta {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: var(--font-h); font-size: clamp(0.68rem, 0.88vw, 0.82rem);
+      letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+      padding: 0.78rem 1.9rem; border-radius: 2px; border: 1px solid;
+      opacity: 0; transform: translateY(8px);
+      transition:
+        opacity 0.55s 0.44s ease,
+        transform 0.55s 0.44s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+    .pv .panel-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright), var(--gold));
+      background-size: 200% 100%; background-position: 100% 0;
+      color: #080500; font-weight: 700; border-color: transparent;
+    }
+    .pv .panel-cta:hover { background-position: 0 0; box-shadow: 0 0 28px rgba(196,154,40,0.45); }
+    .pw .panel-cta { color: var(--w-accent); background: rgba(100,160,210,0.1); border-color: rgba(122,172,206,0.42); }
+    .pw .panel-cta:hover { background: rgba(100,160,210,0.2); box-shadow: 0 0 28px rgba(100,160,210,0.3); color: #fff; }
+    .cta-arrow { display: inline-block; transition: transform 0.2s; }
+    .panel-cta:hover .cta-arrow { transform: translateX(4px); }
+
+    /* animate in on stage.on */
+    #stage.on .client-tag,
+    #stage.on .panel-title,
+    #stage.on .panel-subtitle,
+    #stage.on .panel-desc,
+    #stage.on .panel-cta   { opacity: 1; transform: translateY(0); }
+    #stage.on .panel-line  { opacity: 1; transform: scaleX(1); }
+
+    /* ── Top bar ── */
+    .top-bar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; justify-content: center; padding: 1.75rem 2rem 0;
+      pointer-events: none;
+      opacity: 0; transform: translateY(-10px);
+      transition: opacity 0.7s 1.9s ease, transform 0.7s 1.9s ease;
+    }
+    #stage.on .top-bar { opacity: 1; transform: translateY(0); }
+    .top-logo { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
+    .top-logo img { width: clamp(70px, 9vw, 120px); filter: drop-shadow(0 0 18px rgba(196,154,40,0.45)); }
+    .top-logo-label {
+      font-family: var(--font-h); font-size: clamp(0.52rem, 0.68vw, 0.65rem);
+      letter-spacing: 0.35em; text-transform: uppercase; color: rgba(196,154,40,0.75);
+    }
+
+    /* ── Divider ── */
+    .divider-line {
+      position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
+      background: linear-gradient(to bottom, transparent 0%, rgba(196,154,40,0.12) 15%, rgba(196,154,40,0.4) 40%, rgba(196,154,40,0.4) 60%, rgba(196,154,40,0.12) 85%, transparent 100%);
+      z-index: 20; pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .divider-gem {
+      position: fixed; top: 50%; left: 50%;
+      margin-top: -5px; margin-left: -5px;
+      width: 10px; height: 10px;
+      background: var(--gold); border: 1px solid var(--gold-bright);
+      transform: rotate(45deg);
+      box-shadow: 0 0 18px rgba(196,154,40,0.65);
+      z-index: 21; pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    /* ── Panel slide-in ── */
+    .pv { transform: translateX(-35px); opacity: 0; transition: transform 0.9s cubic-bezier(0.4,0,0.2,1), opacity 0.7s ease, flex 0.75s cubic-bezier(0.4,0,0.2,1); }
+    .pw { transform: translateX( 35px); opacity: 0; transition: transform 0.9s 0.08s cubic-bezier(0.4,0,0.2,1), opacity 0.7s 0.08s ease, flex 0.75s cubic-bezier(0.4,0,0.2,1); }
+    #stage.on .pv, #stage.on .pw { transform: translateX(0); opacity: 1; }
+
+    /* ── Bottom hint ── */
+    .bottom-hint {
+      position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
+      z-index: 50; pointer-events: none; white-space: nowrap;
+      font-family: var(--font-h); font-size: clamp(0.58rem, 0.72vw, 0.68rem);
+      letter-spacing: 0.3em; text-transform: uppercase; color: rgba(196,154,40,0.75);
+      opacity: 0; transition: opacity 0.7s 2.2s ease;
+      animation: pulse 3.5s 2.5s ease infinite;
+    }
+    #stage.on .bottom-hint { opacity: 1; }
+    @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+    /* ── Responsive ── */
+    @media (max-width: 580px) {
+      #stage { flex-direction: column; }
+      .divider-line { top: 50%; bottom: auto; left: 0; right: 0; width: 100%; height: 1px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="ld-name">Project Reforged</div>
+    <div class="ld-bar"><div class="ld-fill"></div></div>
+  </div>
+
+  <div id="stage">
+
+    <div class="top-bar">
+      <div class="top-logo">
+        <img src="assets/logo.png" alt="Project Reforged">
+        <span class="top-logo-label">Choose Your Version</span>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+    <div class="divider-gem"></div>
+
+    <!-- Vanilla -->
+    <div class="panel pv" onclick="location.href='vanilla/'">
+      <div class="panel-bg"></div>
+      <div class="panel-tint"></div>
+      <div class="panel-dark"></div>
+      <div class="panel-particles" id="pv-p"></div>
+      <div class="panel-content">
+        <div class="client-tag">1.12 Client</div>
+        <div class="panel-title">Project<br>Reforged</div>
+        <div class="panel-subtitle">Vanilla</div>
+        <div class="panel-line"></div>
+        <div class="panel-desc">The classic Azeroth, rebuilt in high definition.</div>
+        <a href="vanilla/" class="panel-cta" onclick="event.stopPropagation()">Enter <span class="cta-arrow">→</span></a>
+      </div>
+    </div>
+
+    <!-- WotLK -->
+    <div class="panel pw" onclick="location.href='wotlk/'">
+      <div class="panel-bg"></div>
+      <div class="panel-tint"></div>
+      <div class="panel-dark"></div>
+      <div class="panel-particles" id="pw-p"></div>
+      <div class="panel-content">
+        <div class="client-tag">3.3.5 Client</div>
+        <div class="panel-title">Project<br>Reforged</div>
+        <div class="panel-subtitle">Wrath of the Lich King</div>
+        <div class="panel-line"></div>
+        <div class="panel-desc">Northrend awaits, forged anew with breathtaking clarity.</div>
+        <a href="wotlk/" class="panel-cta" onclick="event.stopPropagation()">Enter <span class="cta-arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="bottom-hint">Hover to explore · Click to enter</div>
+
+  </div>
+
+  <script>
+    const stage  = document.getElementById('stage');
+    const pv     = document.querySelector('.pv');
+    const pw     = document.querySelector('.pw');
+
+    // ── Panel state ──────────────────────────────────
+    function set(state) {
+      if (state === 'v') {
+        pv.style.flex = '1.6'; pw.style.flex = '0.6';
+        pv.classList.add('active');   pv.classList.remove('inactive');
+        pw.classList.add('inactive'); pw.classList.remove('active');
+      } else if (state === 'w') {
+        pv.style.flex = '0.6'; pw.style.flex = '1.6';
+        pw.classList.add('active');   pw.classList.remove('inactive');
+        pv.classList.add('inactive'); pv.classList.remove('active');
+      } else {
+        pv.style.flex = '1'; pw.style.flex = '1';
+        pv.classList.remove('active','inactive');
+        pw.classList.remove('active','inactive');
+      }
+    }
+
+    stage.addEventListener('mousemove', e => {
+      const r = stage.getBoundingClientRect();
+      const ratio = (e.clientX - r.left) / r.width;
+      if      (ratio < 0.44) set('v');
+      else if (ratio > 0.56) set('w');
+      else                   set('c');
+    });
+    stage.addEventListener('mouseleave', () => set('c'));
+
+    // ── Loader ───────────────────────────────────────
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('out');
+        stage.classList.add('on');
+      }, 1650);
+    });
+
+    // ── Particles ────────────────────────────────────
+    function particles(id, color, n) {
+      const c = document.getElementById(id);
+      if (!c) return;
+      for (let i = 0; i < n; i++) {
+        const d = document.createElement('div');
+        const sz = Math.random() * 2.4 + 0.7;
+        const op = (Math.random() * 0.32 + 0.08).toFixed(2);
+        const dur = (Math.random() * 8 + 6).toFixed(1);
+        const del = (Math.random() * 10).toFixed(1);
+        const dy  = (Math.random() * 60 + 30).toFixed(0);
+        Object.assign(d.style, {
+          position: 'absolute',
+          borderRadius: '50%',
+          width: sz + 'px', height: sz + 'px',
+          left: (Math.random() * 100) + '%',
+          top:  (Math.random() * 100) + '%',
+          background: color,
+          boxShadow: `0 0 ${sz*2}px ${color}`,
+          opacity: '0',
+          animation: `ptl ${dur}s ${del}s ease-in-out infinite`,
+          '--dy': `-${dy}px`,
+          '--op': op,
+        });
+        c.appendChild(d);
+      }
+    }
+
+    // inline keyframes for particles
+    const ks = document.createElement('style');
+    ks.textContent = `@keyframes ptl { 0%{opacity:0;transform:translateY(0) scale(.5)} 20%{opacity:var(--op)} 80%{opacity:var(--op)} 100%{opacity:0;transform:translateY(var(--dy)) scale(1)} }`;
+    document.head.appendChild(ks);
+
+    particles('pv-p', 'rgba(196,154,40,0.9)',  20);
+    particles('pw-p', 'rgba(140,190,225,0.9)', 20);
+  </script>
+</body>
+</html>
