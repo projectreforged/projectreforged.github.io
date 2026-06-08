@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Downloads — Project Reforged WotLK</title>
+  <meta name="description" content="Project Reforged modular HD patches for World of Warcraft 3.3.5.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base:      #070608;
+      --bg-surface:   #0d0b10;
+      --bg-elevated:  #131018;
+      --bg-card:      #100e15;
+      --gold-bright:  #e4c05a;
+      --gold-mid:     #c49a28;
+      --gold-dim:     #7a5e18;
+      --gold-faint:   rgba(196,154,40,0.12);
+      --steel:        #8aaccc;
+      --steel-mid:    #5a84a8;
+      --steel-dim:    #304860;
+      --steel-faint:  rgba(100,150,200,0.1);
+      --border-steel: rgba(130,170,210,0.18);
+      --border-gold:  rgba(196,154,40,0.22);
+      --text-primary: #dde6ee;
+      --text-body:    #b0bec8;
+      --text-muted:   #6a7e8a;
+      --text-dim:     #3a4a54;
+      --border:       #1a1614;
+      --font-display: 'Cinzel Decorative', serif;
+      --font-heading: 'Cinzel', serif;
+      --font-body:    'Crimson Pro', serif;
+      --radius:       2px;
+      --max-w:        820px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;font-size:18px;}
+    body{background:var(--bg-base);color:var(--text-body);font-family:var(--font-body);font-size:clamp(1rem,1.2vw,1.1rem);line-height:1.75;overflow-x:hidden;min-height:100vh;}
+    a{color:inherit;text-decoration:none;}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:0.025;pointer-events:none;z-index:9999;}
+    ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:var(--bg-base);} ::-webkit-scrollbar-thumb{background:var(--steel-dim);border-radius:3px;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.25rem,5vw,2.5rem);height:64px;background:rgba(7,6,8,0.97);border-bottom:1px solid var(--border-gold);}
+    .nav-brand{font-family:var(--font-heading);font-size:0.88rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;background:linear-gradient(135deg,var(--steel),var(--gold-mid));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none;}
+    .nav-links a{font-family:var(--font-heading);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);padding:0.5rem 0.8rem;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--steel);}
+    .nav-links .active a{color:var(--gold-mid);}
+
+    .page-header{padding:8rem clamp(1.25rem,5vw,2.5rem) 3.5rem;text-align:center;background:linear-gradient(to bottom,rgba(30,60,120,0.06),transparent);border-bottom:1px solid var(--border);}
+    .page-label{font-family:var(--font-heading);font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--steel-dim);margin-bottom:0.75rem;}
+    .page-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);background:linear-gradient(135deg,#cce8f6 0%,var(--steel) 45%,var(--gold-mid) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;}
+    .page-desc{font-family:var(--font-body);font-size:1rem;font-style:italic;color:var(--text-muted);max-width:520px;margin:0 auto;line-height:1.65;}
+    .compat-pill{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--font-heading);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--steel-mid);border:1px solid var(--border-steel);background:var(--steel-faint);padding:0.3rem 1rem;border-radius:100px;margin-bottom:1rem;}
+
+    .main{max-width:var(--max-w);margin:0 auto;padding:4rem clamp(1.25rem,5vw,2.5rem) 6rem;display:flex;flex-direction:column;gap:3rem;}
+
+    .dl-group{display:flex;flex-direction:column;gap:0.75rem;}
+    .group-header{display:flex;align-items:center;gap:1.2rem;margin-bottom:0.5rem;}
+    .group-header::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--steel-dim),transparent);}
+    .group-label{font-family:var(--font-heading);font-size:0.88rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold-mid);white-space:nowrap;}
+
+    .banner{background:var(--bg-elevated);border:1px solid var(--border);border-left:3px solid var(--steel-dim);border-radius:var(--radius);padding:1rem 1.25rem;font-size:0.95rem;color:var(--text-muted);line-height:1.65;}
+    .banner strong{color:var(--text-primary);}
+
+    .dl-card{background:var(--bg-card);border:1px solid var(--border-steel);border-radius:var(--radius);overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s;}
+    .dl-card:hover{border-color:rgba(100,160,210,0.4);box-shadow:0 0 30px rgba(100,160,210,0.07);}
+    .dl-card-inner{display:grid;grid-template-columns:3rem 1fr auto;gap:1.25rem;align-items:center;padding:1.25rem 1.5rem;}
+    @media(max-width:600px){.dl-card-inner{grid-template-columns:3rem 1fr;} .dl-actions{grid-column:2;padding-bottom:1rem;}}
+    .dl-icon{font-size:1.5rem;text-align:center;}
+    .dl-title-row{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.25rem;}
+    .dl-patch{font-family:var(--font-heading);font-size:0.80rem;letter-spacing:0.13em;text-transform:uppercase;color:var(--gold-mid);background:var(--steel-faint);border:1px solid var(--border-gold);padding:0.1rem 0.5rem;border-radius:2px;}
+    .dl-name{font-family:var(--font-heading);font-size:1.05rem;letter-spacing:0.06em;color:var(--text-primary);}
+    .dl-badges{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.4rem;}
+    .badge{font-family:var(--font-heading);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.1rem 0.5rem;border-radius:2px;border:1px solid;}
+    .badge-core{color:var(--c-core);border-color:var(--c-core-b);background:var(--c-core-bg);}
+    .badge-warn{color:var(--c-warn);border-color:var(--c-warn-b);background:var(--c-warn-bg);}
+    .badge-req {color:var(--c-req); border-color:var(--c-req-b); background:var(--c-req-bg);}
+    .badge-opt {color:var(--c-opt); border-color:var(--c-opt-b); background:rgba(122,144,160,0.05);}
+    .badge-rec {color:var(--c-rec); border-color:var(--c-rec-b); background:var(--c-rec-bg);}
+    .dl-desc{font-size:0.95rem;color:var(--text-muted);line-height:1.6;}
+    .dl-desc strong{color:var(--text-primary);}
+    .dl-desc-warning{font-size:0.9rem;color:rgba(232,196,106,0.85);margin-top:0.5rem;line-height:1.55;}
+    .dl-version{font-family:var(--font-heading);font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-top:0.35rem;}
+    .dl-version .updated{color:var(--steel-dim);}
+    .dl-actions{display:flex;flex-direction:column;gap:0.5rem;min-width:130px;}
+
+    .btn-dl{display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;font-family:var(--font-heading);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.6rem 1.1rem;border-radius:var(--radius);border:1px solid;cursor:pointer;transition:all 0.22s;white-space:nowrap;}
+    .btn-primary{background:linear-gradient(135deg,var(--gold-mid),var(--steel),var(--gold-mid));background-size:200% 100%;background-position:100% 0;color:#040810;font-weight:700;border-color:transparent;}
+    .btn-primary:hover{background-position:0 0;box-shadow:0 0 20px rgba(196,154,40,0.3);}
+    .btn-secondary{background:transparent;color:var(--text-muted);border-color:var(--border);}
+    .btn-secondary:hover{color:var(--steel);border-color:var(--border-gold);}
+    .btn-external{background:transparent;color:var(--gold-mid);border-color:var(--border-gold);}
+    .btn-external:hover{background:var(--steel-faint);color:var(--steel);}
+
+    .dl-variants{border-top:1px solid var(--border);padding:0 1.5rem 1.25rem;display:flex;flex-direction:column;gap:0.75rem;}
+    .dl-variant{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:0.75rem;}
+    .dl-variant+.dl-variant{border-top:1px solid var(--border);}
+    .dl-variant-name{font-family:var(--font-heading);font-size:0.82rem;letter-spacing:0.08em;color:var(--text-primary);margin-bottom:0.2rem;}
+    .dl-variant-sub{font-size:0.88rem;font-style:italic;color:var(--text-dim);}
+    .dl-note{margin-top:0.5rem;font-size:0.88rem;color:var(--text-muted);line-height:1.6;}
+    .dl-note strong{color:var(--text-primary);}
+    .dl-list{margin:0.5rem 0 0 1.1rem;font-size:0.92rem;color:var(--text-muted);line-height:1.7;}
+    .dl-list li strong{color:var(--text-primary);}
+
+    footer{border-top:1px solid var(--border);padding:3rem clamp(1.25rem,5vw,2.5rem);}
+    .footer-inner{max-width:var(--max-w);margin:0 auto;display:flex;flex-direction:column;gap:1.5rem;}
+    .footer-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+    .footer-brand{font-family:var(--font-heading);font-size:0.82rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--steel-dim);}
+    .footer-links{display:flex;gap:0.25rem;list-style:none;flex-wrap:wrap;}
+    .footer-links a{font-family:var(--font-heading);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);padding:0.3rem 0.6rem;transition:color 0.2s;}
+    .footer-links a:hover{color:var(--steel-mid);}
+    .footer-choose{display:flex;justify-content:center;padding-top:1.25rem;border-top:1px solid var(--border);}
+    .footer-choose a{font-family:var(--font-heading);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);transition:color 0.2s;}
+    .footer-choose a:hover{color:var(--steel-mid);}
+    .footer-bottom{font-size:0.88rem;color:var(--text-dim);text-align:center;padding-top:1.5rem;border-top:1px solid var(--border);}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../" class="nav-brand">Project Reforged</a>
+    <ul class="nav-links">
+      <li><a href="../">Home</a></li>
+      <li class="active"><a href="#">Downloads</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+      <li><a href="../#support">Support</a></li>
+      <li><a href="https://discord.gg/jnvkayMbqJ">Discord</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="compat-pill">✓ Compatible with any standard 3.3.5 server</div>
+    <div class="page-label">Modular Patch Library · WotLK 3.3.5</div>
+    <h1 class="page-title">Downloads</h1>
+    <p class="page-desc">Project Reforged is fully modular — install only what you need. Start with the dependencies, then add patches at will.</p>
+  </div>
+
+  <main class="main">
+
+    <!-- Dependencies -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Dependencies — Install First</span></div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🔧</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">WoW Patcher 3.3.5</span></div>
+            <div class="dl-badges"><span class="badge badge-req">Required</span></div>
+            <div class="dl-desc">Patches your WoW 3.3.5 client to enable HD visual mods and interface edits. Run the patcher to enable both <strong>4GB RAM</strong> and <strong>Allow Interface Edits</strong> before installing any patches.</div>
+          </div>
+          <div class="dl-actions">
+            <a href="https://github.com/Stormhand-dev/WoW-3.3.5-Patcher---Project-Reforged" class="btn-dl btn-external" target="_blank">Repository →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">⚙️</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">DXVK 2.7.1</span></div>
+            <div class="dl-badges"><span class="badge badge-rec">Recommended</span></div>
+            <div class="dl-desc">Improves the Direct3D 9 rendering pipeline — better stability, performance, and compatibility, especially when using ReShade. Extract the archive, open the <strong>x32</strong> folder, and copy <strong>d3d9.dll</strong> into your main WoW folder.</div>
+          </div>
+          <div class="dl-actions">
+            <a href="https://github.com/doitsujin/dxvk/releases/tag/v2.7.1" class="btn-dl btn-primary" target="_blank">Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommended -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Recommended Mods</span></div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">✍️</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">Lexara — HD Font Renderer</span></div>
+            <div class="dl-badges"><span class="badge badge-rec">Recommended</span></div>
+            <div class="dl-desc">Replaces the WoW 3.3.5 font rendering engine with a high-definition MSDF renderer, producing crisp and clear floating combat text, nameplates, and UI fonts at any resolution. Follow the installation instructions in the repository.</div>
+          </div>
+          <div class="dl-actions">
+            <a href="https://github.com/Stormhand-dev/Lexara---HD-Font-Renderer-for-WoW-3.3.5" class="btn-dl btn-external" target="_blank">Repository →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🔐</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-name">Vanguard — WotLK AutoLogin</span></div>
+            <div class="dl-badges"><span class="badge badge-rec">Recommended</span></div>
+            <div class="dl-desc">A GlueXML addon that automates the login process for WoW 3.3.5 private servers, saving your credentials securely and bypassing the login screen on launch. Read the README for setup instructions before use.</div>
+          </div>
+          <div class="dl-actions">
+            <a href="https://github.com/Stormhand-dev/Vanguard---WotLK-AutoLogin/blob/main/README.md" class="btn-dl btn-external" target="_blank">Repository →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner"><strong>Important:</strong> Patches <strong>B + D + E</strong> are one large environment/world set. Install them together, or not at all.</div>
+
+    <!-- Core -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Core Modules</span></div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🧙</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-A</span><span class="dl-name">Player Characters & NPCs</span></div>
+            <div class="dl-badges"><span class="badge badge-core">Core</span></div>
+            <div class="dl-desc">Core character and NPC visuals. Foundation for multiple other modules.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.2</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-A.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🏰</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-B</span><span class="dl-name">Buildings</span></div>
+            <div class="dl-badges"><span class="badge badge-warn">Install with D + E</span></div>
+            <div class="dl-desc">Architecture and structures. Part of the Environment & World set.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-B.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🐉</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-C</span><span class="dl-name">Creatures</span></div>
+            <div class="dl-badges"><span class="badge badge-core">Core</span></div>
+            <div class="dl-desc">Creatures and related assets.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.2</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-C.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🌿</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-D</span><span class="dl-name">Doodads</span></div>
+            <div class="dl-badges"><span class="badge badge-warn">Install with B + E</span></div>
+            <div class="dl-desc">World doodads and textures. Part of the Environment & World set.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.1</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-D.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🌄</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-E</span><span class="dl-name">Environment</span></div>
+            <div class="dl-badges"><span class="badge badge-warn">Install with B + D</span></div>
+            <div class="dl-desc">Environment textures and world visuals. Part of the Environment & World set.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-E.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">⚔️</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-G</span><span class="dl-name">Gear & Weapons</span></div>
+            <div class="dl-badges"><span class="badge badge-core">Core</span></div>
+            <div class="dl-desc">Gear and weapon visuals.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-G.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🧭</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-I</span><span class="dl-name">Interface</span></div>
+            <div class="dl-badges"><span class="badge badge-core">Core</span></div>
+            <div class="dl-desc">Interface visuals and UI enhancements.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.2</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-I.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Optional Enhancements</span></div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🗺️</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-M</span><span class="dl-name">Maps & Loading Screens</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Optional</span></div>
+            <div class="dl-desc">Enhanced maps and loading screens.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-M.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🌑</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-N</span><span class="dl-name">Darker Nights</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Optional</span></div>
+            <div class="dl-desc">Darker nights for a more atmospheric experience.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-N.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🪄</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-P</span><span class="dl-name">Spell Particle Effects</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Optional</span></div>
+            <div class="dl-desc">Enhanced spell visuals and particle effects.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-P.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio -->
+    <div class="dl-group">
+      <div class="group-header"><span class="group-label">Audio</span></div>
+      <div class="dl-card">
+        <div class="dl-card-inner">
+          <div class="dl-icon">🎵</div>
+          <div class="dl-info">
+            <div class="dl-title-row"><span class="dl-patch">Patch-S</span><span class="dl-name">Sounds & Music</span></div>
+            <div class="dl-badges"><span class="badge badge-opt">Optional</span></div>
+            <div class="dl-desc">Sound and music enhancements for a richer audio experience.</div>
+            <div class="dl-version"><span class="updated">Beta</span> · v0.1.0</div>
+          </div>
+          <div class="dl-actions"><a href="https://pub-0f05631d243e4046993fc02ca7be9542.r2.dev/Wrath%20of%20the%20Lich%20King/patches/patch-S.mpq" class="btn-dl btn-primary">Download</a></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <span class="footer-brand">Project Reforged — WotLK</span>
+        <ul class="footer-links">
+          <li><a href="../">Home</a></li>
+          <li><a href="../changelog.html">Changelog</a></li>
+          <li><a href="https://discord.gg/jnvkayMbqJ">Discord</a></li>
+          <li><a href="https://ko-fi.com/projectreforged">Ko-fi</a></li>
+        </ul>
+      </div>
+      <div class="footer-choose">
+        <a href="../../">← Choose Version</a>
+      </div>
+      <div class="footer-bottom">
+        Project Reforged is not affiliated with or endorsed by Blizzard Entertainment.<br>
+        World of Warcraft® is a registered trademark of Blizzard Entertainment.<br>
+        <span style="color:var(--steel-dim);">© Project Reforged — 2026</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
