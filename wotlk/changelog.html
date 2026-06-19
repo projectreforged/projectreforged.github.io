@@ -69,7 +69,7 @@
     .milestone-label{font-family:var(--font-heading);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel-dim);border:1px solid var(--border-gold);background:var(--steel-faint);padding:0.1rem 0.5rem;border-radius:2px;}
 
     .version-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
-    .version-block.open .version-body{max-height:2000px;}
+    .version-block.open .version-body{max-height:9999px;}
     .version-body-inner{padding:0 1.5rem 1.5rem;display:flex;flex-direction:column;gap:1.25rem;}
     .milestone-note{background:var(--steel-faint);border:1px solid var(--border-gold);border-radius:var(--radius);padding:0.75rem 1rem;font-size:0.88rem;color:var(--gold-mid);font-style:italic;}
 
@@ -108,14 +108,122 @@
   <div class="page-header">
     <div class="label">Full Release History — WotLK 3.3.5</div>
     <h1>Patch Notes</h1>
-    <div class="current-stable">v0.2.0 — Beta · June 9th, 2026</div>
+    <div class="current-stable">v1.0.0 — Stable · June 19th, 2026</div>
   </div>
 
   <main class="changelog-main">
     <a class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</a>
 
+    <!-- v1.0.0 -->
+    <div class="version-block open milestone" id="v1.0.0">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v1.0.0</div>
+        <div class="version-date">June 19th, 2026</div>
+        <span class="milestone-label">Stable Release</span>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="milestone-note">Version 1.0.0 marks the end of the beta period. Project Reforged WotLK is now in full stable release.</div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul>
+            <li>All NPC textures across the game have been upscaled for improved quality. (Credits to Maribeth!)</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch B</div>
+            <ul>
+            <li>Fixed multiple texture glitches on Orc structures across Northrend, including the Horde Battle Ship in Icecrown.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch C</div>
+            <ul>
+            <li>Fixed a texture glitch on the Big Blizzard Bear mount.</li>
+            <li>Fixed broken textures and particle effects on several bear mounts; models are now 33% larger.</li>
+            <li>Sergeant Gorth in Howling Fjord upgraded to a new HD model. (Credits: Kraulspine!)</li>
+            <li>Fixed NPC skin for Korra in Ashenvale.</li>
+            <li>Northshire Peasant upgraded to a new HD model. (Thanks to space_slam!)</li>
+            <li>Several creature models updated to match Space_slam's latest release.</li>
+            <li>Boar sizes in Durotar, Elwynn Forest, and Dun Morogh adjusted to proper scale.</li>
+            <li>Fel Reaver in Outland upgraded to a new HD model.</li>
+            <li>Fixed fire particle effects on the Warlock Level 20 mount; the eye and nose trail no longer persists while moving.</li>
+            <li>Fixed Murloc's portrait target camera.</li>
+            <li>Talbuk skin texture upgraded to UHD.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch D</div>
+            <ul>
+            <li>Fixed tree models in Elwynn Forest that were causing shadow glitches when moving through certain areas.</li>
+            <li>Improved textures for Elwynn Forest tree leaves.</li>
+            <li>Replaced a bush model in Tirisfal Glades and Undercity for improved visuals.</li>
+            <li>Reduced the size of a tree in Stormwind that was clipping into the Mage Tower ramp.</li>
+            <li>Reduced the size of an oversized tree in Loch Modan.</li>
+            <li>Fixed floating body props in Tirisfal Glades near Scarlet Monastery and other affected areas.</li>
+            <li>Added a new HD tree to Stranglethorn Vale.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch E</div>
+            <ul>
+            <li>Skybox updated to the latest version.</li>
+            <li>ObjectFade is now bundled into Patch-E, enabling smooth fade transitions for 3D objects and environment doodads. (All credits to Billy Hoyle!)</li>
+            <li>Fixed a lighting issue with the Eversong Woods grass texture; replaced with an upgraded version.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch G</div>
+            <ul>
+            <li>Fixed transparency issues affecting several cloaks.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch I</div>
+            <ul>
+            <li>Character Panel and Spellbook reverted to vanilla versions for compatibility reasons; they will return as an optional addon.</li>
+            <li>Patch-I is now fully compatible with ElvUI.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch M</div>
+            <ul>
+            <li>No changes in this release.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch N</div>
+            <ul>
+            <li>No changes in this release.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch P</div>
+            <ul>
+            <li>Fixed a missing texture on the Rake ability for hunter pets.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch S</div>
+            <ul>
+            <li>Restored character voice files that were conflicting with multi-language clients.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch U</div>
+            <ul>
+            <li>Introduced as a new patch in v1.0.0.</li>
+            <li>Upright Orc model extensively reworked: all cloak geosets added with animations, one animated hairstyle included, and persistent seams around the ears resolved.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- v0.2.0 -->
-    <div class="version-block open" id="v0.2.0">
+    <div class="version-block" id="v0.2.0">
       <div class="version-header" onclick="toggleVersion(this)">
         <div class="version-num">v0.2.0</div>
         <div class="version-date">June 9th, 2026</div>
