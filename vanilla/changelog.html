@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patch Notes — Project Reforged</title>
+  <meta name="description" content="Full release history for Project Reforged.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base:      #070608;
+      --bg-surface:   #0d0b10;
+      --bg-elevated:  #131018;
+      --bg-card:      #100e15;
+      --gold-bright:  #e4c05a;
+      --gold-mid:     #c49a28;
+      --gold-dim:     #7a5e18;
+      --gold-faint:   rgba(196,154,40,0.12);
+      --text-primary: #ede6d8;
+      --text-body:    #c8bfaa;
+      --text-muted:   #8a7e6a;
+      --text-dim:     #4a4438;
+      --border:       #1e1a14;
+      --border-gold:  rgba(196,154,40,0.22);
+      --font-display: 'Cinzel Decorative', serif;
+      --font-heading: 'Cinzel', serif;
+      --font-body:    'Crimson Pro', serif;
+      --radius:       2px;
+      --max-w:        820px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 18px; }
+    body {
+      background: var(--bg-base);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 1.2vw, 1.1rem);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-base); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.25rem, 5vw, 2.5rem);
+      height: 64px;
+      background: rgba(7,6,8,0.97);
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .nav-brand {
+      font-family: var(--font-heading);
+      font-size: 0.88rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 0.25rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-heading);
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-muted); padding: 0.5rem 0.8rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-bright); }
+    .nav-links .active a { color: var(--gold-mid); }
+
+    .page-header {
+      padding: 8rem clamp(1.25rem, 5vw, 2.5rem) 3rem;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(120,80,5,0.06), transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header .label {
+      font-family: var(--font-heading);
+      font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold-dim); margin-bottom: 0.75rem;
+    }
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      background: linear-gradient(135deg, var(--gold-bright) 0%, #f5d97a 40%, var(--gold-mid) 70%, #8a6010 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 1rem;
+    }
+    .current-stable {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-heading);
+      font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold-mid);
+      border: 1px solid var(--border-gold);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+    }
+    .current-stable::before {
+      content: '';
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #7dc47a;
+      box-shadow: 0 0 6px rgba(125,196,122,0.8);
+    }
+
+    /* Main layout */
+    .changelog-main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4rem clamp(1.25rem, 5vw, 2.5rem) 6rem;
+    }
+
+    /* Sticky back to top */
+    .back-top {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-heading);
+      font-size: 0.88rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s;
+      margin-bottom: 3rem;
+    }
+    .back-top:hover { color: var(--gold-mid); }
+
+    /* Version block */
+    .version-block {
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-card);
+    }
+    .version-block + .version-block { }
+
+    .version-header {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 1.1rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .version-header:hover { background: rgba(196,154,40,0.04); }
+    .version-num {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      min-width: 90px;
+    }
+    .version-date {
+      font-family: var(--font-heading);
+      font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .version-chevron {
+      margin-left: auto;
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      transition: transform 0.25s;
+    }
+    .version-block.open .version-chevron { transform: rotate(180deg); }
+    .version-block.milestone .version-header {
+      background: linear-gradient(to right, rgba(196,154,40,0.06), transparent);
+    }
+    .version-block.milestone .version-num { color: var(--gold-bright); }
+    .milestone-label {
+      font-family: var(--font-heading);
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold-dim);
+      border: 1px solid var(--border-gold);
+      background: var(--gold-faint);
+      padding: 0.1rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    /* Version body */
+    .version-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .version-block.open .version-body {
+      max-height: 2000px;
+    }
+    .version-body-inner {
+      padding: 0 1.5rem 1.5rem;
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+
+    /* Milestone note inside body */
+    .milestone-note {
+      background: var(--gold-faint);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      color: var(--gold-mid);
+      font-style: italic;
+    }
+
+    /* Patch group */
+    .patch-group {}
+    .patch-group-tag {
+      font-family: var(--font-heading);
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold-mid);
+      background: var(--gold-faint);
+      border: 1px solid var(--border-gold);
+      padding: 0.1rem 0.55rem;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 0.6rem;
+    }
+    .patch-group ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.35rem;
+    }
+    .patch-group li {
+      display: flex; gap: 0.75rem;
+      font-size: 1rem;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+    .patch-group li::before {
+      content: '◆';
+      color: var(--gold-dim);
+      font-size: 0.45rem;
+      margin-top: 0.55rem;
+      flex-shrink: 0;
+    }
+
+    /* Divider between eras */
+    .era-divider {
+      display: flex; align-items: center; gap: 1.2rem;
+      margin: 3rem 0 2rem;
+    }
+    .era-divider::before, .era-divider::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    }
+    .era-divider span {
+      font-family: var(--font-heading);
+      font-size: 0.82rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem clamp(1.25rem, 5vw, 2.5rem);
+    }
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-brand {
+      font-family: var(--font-heading);
+      font-size: 0.82rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .footer-links {
+      display: flex; gap: 0.25rem; list-style: none; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: var(--font-heading);
+      font-size: 0.74rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-dim); padding: 0.3rem 0.6rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold-mid); }
+    .footer-choose {
+      display: flex; justify-content: center;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-choose a {
+      font-family: var(--font-heading);
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-dim); transition: color 0.2s;
+    }
+    .footer-choose a:hover { color: var(--gold-mid); }
+    .footer-bottom {
+      font-size: 0.88rem; color: var(--text-dim); text-align: center;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../" class="nav-brand">Project Reforged</a>
+    <ul class="nav-links">
+      <li><a href="../">Home</a></li>
+      <li><a href="../downloads/">Downloads</a></li>
+      <li class="active"><a href="#">Changelog</a></li>
+      <li><a href="../#support">Support</a></li>
+      <li><a href="https://discord.gg/jnvkayMbqJ">Discord</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="label">Full Release History</div>
+    <h1>Patch Notes</h1>
+    <div class="current-stable">v5.5.2 — Stable · June 24th, 2026</div>
+  </div>
+
+  <main class="changelog-main">
+    <a class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</a>
+
+    <!-- v5.5.2 -->
+    <div class="version-block open" id="v5.5.2">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.5.2</div>
+        <div class="version-date">June 24th, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch D</div>
+            <ul>
+            <li>Fixed a glitch that was causing an invisible wall in several locations near Tirisfal Glades and Western Plaguelands.</li>
+            <li>Reduced the size of some trees in Durotar that were blocking a passage to a quest area near Razor Hill.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- v5.5.1 -->
+    <div class="version-block" id="v5.5.1">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.5.1</div>
+        <div class="version-date">May 5th, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul><li>Various database fixes.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch C</div>
+            <ul><li>Fixed transparency issue on Eastvale Peasants — now correctly rendered with full opacity.</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- v5.5.0 -->
+    <div class="version-block" id="v5.5.0">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.5.0</div>
+        <div class="version-date">April 23rd, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul>
+              <li>Night Elf character models fully reworked — all additional hairstyles are now available.</li>
+              <li>Improved Night Elf male idle animation — neck alignment with the torso has been adjusted.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch L</div>
+            <ul><li>Night Elf model temporarily removed from "A Little Less Patch" due to compatibility issues.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch P</div>
+            <ul><li>Patch-V has been renamed to Patch-P (Particle Spell Effects).</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch T</div>
+            <ul>
+              <li>New patch introducing two variants: Standard (formerly Patch-U performance) and Ultra Base (required for the optional Patch-U).</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch U</div>
+            <ul>
+              <li>Patch-U has been restructured and now focuses exclusively on UHD Textures.</li>
+              <li>Previous Patch-U standard has been split into two tiers: Patch-T (Ultra Base) and Patch-U (UHD Textures).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- v5.4.2 -->
+    <div class="version-block" id="v5.4.2">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.4.2</div>
+        <div class="version-date">April 17th, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch C</div>
+            <ul>
+              <li>Tyrande Whisperwind in Darnassus upgraded to a new HD model.</li>
+              <li>Jaina Proudmoore in Theramore upgraded to a new HD model.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch D</div>
+            <ul><li>Resized an overgrown Ashenvale tree root that was blocking several passages in the area.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch M</div>
+            <ul><li>Fixed visual glitches in maps of Westfall, Burning Steppes, Dustwallow Marsh, Searing Gorge, Un'Goro Crater, and Deadwind Pass.</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- v5.4.1 -->
+    <div class="version-block" id="v5.4.1">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.4.1</div>
+        <div class="version-date">April 16th, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul><li>Database updated to match the latest client changes.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch D</div>
+            <ul>
+              <li>Reduced the size of a tree root in Ashenvale that was clipping inside tunnels at Splintertree Post.</li>
+              <li>Replaced a tree in Ashenvale with a larger version to fix disjointed root issues.</li>
+              <li>Adjusted a tree stump in Warsong Gulch to improve player collision.</li>
+              <li>Removed collision from Durotar Tree leaves. (Thanks to Appletrey!)</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch E</div>
+            <ul><li>Adjusted Fog Pushback mod for a better balance between view distance and atmospheric depth.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch G</div>
+            <ul><li>Database updated to match the latest client changes.</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- v5.4.0 -->
+    <div class="version-block" id="v5.4.0">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.4.0</div>
+        <div class="version-date">April 10th, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul>
+              <li>Fixed an issue where some Undead facial features were still displaying glowing eyes incorrectly.</li>
+              <li>Human Female Player Character model fully reworked, including new hairstyles and improved textures.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch C</div>
+            <ul>
+              <li>All wolf mounts (racial, reputation, and PvP) revised and upgraded.</li>
+              <li>All bear mounts revised and upgraded to HD models.</li>
+              <li>All kodo mounts (including Tauren racial, reputation, and PvP) revised and upgraded.</li>
+              <li>All Deathcharger reputation mounts now match the colors of the Four Horsemen in Naxxramas.</li>
+              <li>Undead PvP mount Red Skeletal Warhorse upgraded to UHD textures.</li>
+              <li>Shadowclaw Tiger in Darkshore increased in size and upgraded to a unique HD texture.</li>
+              <li>King Bangalash in Stranglethorn upgraded to a new HD texture.</li>
+              <li>Chromatic Drakonid and draconic creatures updated to UHD textures and fixed across all models.</li>
+              <li>Several fox-type creatures upgraded to new HD models.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch D</div>
+            <ul>
+              <li>Goldshire and Redridge Inn models revised to fix crash issues. (Thanks to Appletrey!)</li>
+              <li>Fixed several Ashenvale tree and collision issues causing players to get stuck.</li>
+              <li>Fixed an issue with a tree that prevented interaction with the Warlock Succubus Quest object.</li>
+              <li>Added a new HD model for Gnoll Tents across the world.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch G</div>
+            <ul>
+              <li>All eyepatches upgraded to HD models and manually adjusted to properly fit every race and gender.</li>
+              <li>Fixed texture glitches affecting several cloaks after the last update.</li>
+              <li>Ashkandi, Greatsword of the Brotherhood upgraded to a new HD model.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="era-divider"><span>Earlier 5.x releases</span></div>
+
+    <!-- v5.3.4 through v5.0.0 — collapsed summary blocks -->
+    <div class="version-block" id="v5.3.4">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.3.4</div>
+        <div class="version-date">March 30th, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch D</div>
+            <ul><li>Replaced a tree in Redridge Mountains fixing a visual glitch affecting the Mage spell Blizzard.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch G</div>
+            <ul>
+              <li>Verigan's Fist now appears correctly, updated to match the new weapon model.</li>
+              <li>Replaced the Nightfin Soup inventory icon.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch M</div>
+            <ul><li>Fixed map visual glitches in Burning Steppes, Eastern Plaguelands, and Stonetalon Mountains. Updated several instance maps.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch S</div>
+            <ul>
+              <li>Fixed several database inconsistencies related to sound.</li>
+              <li>Music now plays correctly in the Windhorn Canyon dungeon.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="version-block" id="v5.3.0">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.3.0 – v5.3.3</div>
+        <div class="version-date">March 23–29, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul>
+              <li>Undead player characters updated to a more recent HD model version with additional hairstyle options.</li>
+              <li>Undead eye glow reworked across multiple sub-releases.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch C</div>
+            <ul>
+              <li>All riding crab mounts fixed and upgraded to new HD models.</li>
+              <li>Baron Rivendare in Stratholme upgraded to an HD model.</li>
+              <li>The Four Horsemen in Naxxramas now use upgraded HD horse models.</li>
+              <li>High Inquisitor Whitemane now uses a new HD model.</li>
+              <li>Druid Swift Travel Form now uses a new HD model.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch I</div>
+            <ul><li>Reverted Map Icon texture mapping following TWoW hotfix.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch V</div>
+            <ul><li>Blood Enhanced mod integrated into Patch-V.</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="version-block" id="v5.2.0">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.2.0 – v5.2.1</div>
+        <div class="version-date">March 20–21, 2026</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul>
+              <li>DBC updates for Turtle WoW 1.18.1.</li>
+              <li>All new Moonwhisper NPCs textures updated to HD character models.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch C</div>
+            <ul>
+              <li>Ramstein the Gorger upgraded to a new HD armored golem model.</li>
+              <li>All wolves upgraded to new HD models.</li>
+              <li>Warlock's Voidwalker upgraded to a new HD model.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch M</div>
+            <ul>
+              <li>Kalimdor and World Maps updated to include Moonwhisper Coast.</li>
+              <li>Multiple areas upgraded to HD quality maps.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="version-block milestone" id="v5.0.0">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v5.0.0</div>
+        <div class="version-date">February 23rd, 2026</div>
+        <span class="milestone-label">Milestone</span>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="milestone-note">A turning point in the journey. The HD Project is reborn — emerging anew as Project Reforged.</div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul>
+              <li>Added 4 new hairstyles to the Human Male HD model.</li>
+              <li>Added a new facial hair style for Human Male (short full-beard).</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch I</div>
+            <ul><li>Added 30,000+ HD icons — credits to Aevintiri for the Clean Icons Mechagnome Edition set.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch C</div>
+            <ul>
+              <li>Fixed texture mismatches across several Ram creatures.</li>
+              <li>Upgraded all undead horses (including Deathchargers) to HD models.</li>
+              <li>All Night Elf Swift Frostsaber mounts upgraded to a newer HD model.</li>
+              <li>Fixed the Stormwind "Bridge Crash" issue related to cow model animation handling.</li>
+            </ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch E</div>
+            <ul><li>Upgraded Caverns of Time background textures (nebulae, planets, asteroids) to HD.</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="era-divider"><span>4.x Era</span></div>
+
+    <div class="version-block" id="v4.x">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v4.0.0 – v4.4.8</div>
+        <div class="version-date">May 2025 – Dec 2025</div>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Milestone</div>
+            <ul><li>v4.0.0 — Complete rework of the HD Patch into powerful modular components, offering unprecedented flexibility and customization.</li></ul>
+          </div>
+          <div class="patch-group">
+            <div class="patch-group-tag">Highlights</div>
+            <ul>
+              <li>All Druid forms textures upgraded to UHD. All wolf, wolf mount, bear, and kodo textures progressively refined.</li>
+              <li>Shaman Totems upgraded to new HD models with ground-glow effects and full particle animations.</li>
+              <li>Undead character reworks, eye glow refinements, and bone texture improvements across multiple releases.</li>
+              <li>Classiic HD "Redridge Mountains" module incorporated. Vidooo Ground Textures fully integrated into Patches D and E.</li>
+              <li>FogPushBack mod incorporated into Patch-E. SuperWoW selection circle textures added to Patch-I.</li>
+              <li>Patch-U Performance Version introduced. 30,000+ HD icons added in v5.0.0 (Clean Icons Mechagnome Edition).</li>
+              <li>Numerous crash fixes: Goldshire Inn, Auberdine dock, Tanaris, Karazhan Crypts, Scholomance, and more.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="era-divider"><span>Original Releases — 1.x · 2.x · 3.x</span></div>
+
+    <div class="version-block milestone" id="v3.0.0">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v3.0.0</div>
+        <div class="version-date">October 1st, 2025</div>
+        <span class="milestone-label">Milestone</span>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="milestone-note">HD Patch split into three files (Patch-A, Patch-B, Patch-C) and full integration of upscaled vanilla textures from Faithful Upscale mod.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="version-block milestone" id="v1.0.0">
+      <div class="version-header" onclick="toggleVersion(this)">
+        <div class="version-num">v1.0.0</div>
+        <div class="version-date">August 24th, 2025</div>
+        <span class="milestone-label">Initial Release</span>
+        <div class="version-chevron">▾</div>
+      </div>
+      <div class="version-body">
+        <div class="version-body-inner">
+          <div class="patch-group">
+            <div class="patch-group-tag">Patch A</div>
+            <ul>
+              <li>Missing models added, including new bakedNPCtextures.</li>
+              <li>Fixed Zhevra Runner wrong model.</li>
+              <li>Fixed Lupine Horror missing texture inside Shadowfang Keep.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <span class="footer-brand">Project Reforged</span>
+        <ul class="footer-links">
+          <li><a href="../">Home</a></li>
+          <li><a href="../downloads/">Downloads</a></li>
+          <li><a href="https://discord.gg/jnvkayMbqJ">Discord</a></li>
+          <li><a href="https://ko-fi.com/projectreforged">Ko-fi</a></li>
+        </ul>
+      </div>
+      <div class="footer-choose">
+        <a href="../../">← Choose Version</a>
+      </div>
+      <div class="footer-bottom">
+        Project Reforged is not affiliated with or endorsed by Blizzard Entertainment.<br>
+        World of Warcraft® is a registered trademark of Blizzard Entertainment.<br>
+        <span style="color:var(--gold-dim);">© Project Reforged — 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleVersion(header) {
+      const block = header.closest('.version-block');
+      block.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
