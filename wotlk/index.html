@@ -167,6 +167,35 @@
     .support-inner img { width:80px; height:80px; object-fit:contain; filter:drop-shadow(0 0 20px rgba(100,160,210,0.4)); }
     .support-inner p { color:var(--text-muted); max-width:460px; font-style:italic; }
 
+    /* ── Credits ── */
+    #credits { border-top: 1px solid var(--border); }
+    .credits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.75rem;
+    }
+    .credit-item {
+      display: flex; gap: 0.75rem;
+      align-items: flex-start;
+      padding: 1rem 1.25rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .credit-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .credit-text .credit-name {
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+    .credit-text .credit-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
     /* ── Footer ── */
     footer { border-top:1px solid var(--border); padding:3rem clamp(1.25rem,5vw,2.5rem); }
     .footer-inner { max-width:var(--max-w); margin:0 auto; display:flex; flex-direction:column; gap:2rem; }
@@ -253,7 +282,7 @@
       <div class="release-grid">
         <div class="card reveal">
           <div class="corner-bl"></div><div class="corner-br"></div>
-          <div class="version-badge">🧪 Beta Release</div>
+          <div class="version-badge">⚜️ Stable</div>
           <div class="version-number frost-text">v1.0.4</div>
           <div class="release-date">June 24, 2026</div>
           <a href="downloads/" class="btn btn-primary" style="width:100%;justify-content:center;">Download</a>
@@ -325,6 +354,43 @@
         <h2 class="section-title">Enjoying Project Reforged?</h2>
         <p>This project is sustained through continuous development, testing, and long-term maintenance. If you find value in this work, your support keeps it evolving.</p>
         <a href="https://ko-fi.com/projectreforged" class="btn btn-primary">Support on Ko-fi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credits -->
+  <section id="credits" class="section">
+    <div class="container">
+      <div class="ornament reveal"><span class="ornament-icon">Credits</span></div>
+      <div class="credits-grid reveal">
+        <div class="credit-item">
+          <span class="credit-icon">⚜️</span>
+          <div class="credit-text">
+            <div class="credit-name">Appletrey</div>
+            <div class="credit-desc">Generous inclusion of assets from Classiic HD Mod.</div>
+          </div>
+        </div>
+        <div class="credit-item">
+          <span class="credit-icon">🖌️</span>
+          <div class="credit-text">
+            <div class="credit-name">Bibsan (Space_slam)</div>
+            <div class="credit-desc">Models kindly borrowed from his excellent project.</div>
+          </div>
+        </div>
+        <div class="credit-item">
+          <span class="credit-icon">🐉</span>
+          <div class="credit-text">
+            <div class="credit-name">Kraulspine</div>
+            <div class="credit-desc">Wonderful custom models and ports.</div>
+          </div>
+        </div>
+        <div class="credit-item">
+          <span class="credit-icon">🧩</span>
+          <div class="credit-text">
+            <div class="credit-name">MacWarrior</div>
+            <div class="credit-desc">Creator of the Gob Retroport Mod, a great HD game object collection.</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
